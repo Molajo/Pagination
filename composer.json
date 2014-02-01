@@ -23,12 +23,11 @@
     "require": {
         "php": ">=5.4",
         "commonapi/render": "dev-master",
-        "commonapi/exception": "dev-master",
-        "molajo/resources": "dev-master"
+        "commonapi/exception": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "Molajito": "./"
+            "Molajo/Pagination": "/Source"
         }
     }
 }

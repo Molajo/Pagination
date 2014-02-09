@@ -6,7 +6,7 @@
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
  */
-namespace Molajo;
+namespace Molajo\Pagination;
 
 use Countable;
 use ArrayAccess;
@@ -111,13 +111,13 @@ class Pagination implements PaginationInterface, IteratorAggregate, ArrayAccess,
     /**
      * Construct
      *
-     * @param  array                 $data             Data to be displayed (not full results)
-     * @param  string                $page_url         URL for page on which paginated appears
-     * @param  array                 $query_parameters URL Query Parameters (other than page)
-     * @param  int                   $total_items      Total items in full resultset for data
-     * @param  int                   $per_page         Number of items per page
-     * @param  int                   $display_links    Number of page number "buttons" to show
-     * @param  int                   $page             Current page
+     * @param  array  $data             Data to be displayed (not full results)
+     * @param  string $page_url         URL for page on which paginated appears
+     * @param  array  $query_parameters URL Query Parameters (other than page)
+     * @param  int    $total_items      Total items in full resultset for data
+     * @param  int    $per_page         Number of items per page
+     * @param  int    $display_links    Number of page number "buttons" to show
+     * @param  int    $page             Current page
      *
      * @since  1.0
      */

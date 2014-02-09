@@ -29,5 +29,11 @@
         "psr-4": {
             "Molajo\\Pagination\\": "Source/"
         }
-    }
+    },
+
+    "archive": {
+        "exclude": ["/.dev"]
+    },
+
+    "minimum-stability": "dev"
 }

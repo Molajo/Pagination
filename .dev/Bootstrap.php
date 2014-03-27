@@ -20,7 +20,7 @@ $classmap = createClassMap($base . '/vendor/commonapi/render', 'CommonApi\\Rende
 $results  = createClassMap($base . '/vendor/commonapi/exception', 'CommonApi\\Exception\\');
 $classmap = array_merge($classmap, $results);
 
-$results  = createClassMap($base . '/Source', 'Pagination\\');
+$results  = createClassMap($base . '/Source', 'Molajo\\');
 $classmap = array_merge($classmap, $results);
 
 ksort($classmap);

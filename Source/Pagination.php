@@ -8,10 +8,6 @@
  */
 namespace Molajo;
 
-use Countable;
-use ArrayAccess;
-use ArrayIterator;
-use IteratorAggregate;
 use CommonApi\Render\PaginationInterface;
 
 /**
@@ -22,9 +18,9 @@ use CommonApi\Render\PaginationInterface;
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @copyright  2014 Amy Stephen. All rights reserved.
- * @since      1.0
+ * @since      1.0.0
  */
-class Pagination implements PaginationInterface, IteratorAggregate, ArrayAccess, Countable
+class Pagination implements PaginationInterface
 {
     /**
      * Data - numerically indexed array items
@@ -109,34 +105,61 @@ class Pagination implements PaginationInterface, IteratorAggregate, ArrayAccess,
     protected $last_page;
 
     /**
-     * Construct
+     * SEF URLs (true or false)
      *
-     * @param  array  $data             Data to be displayed (not full results)
-     * @param  string $page_url         URL for page on which paginated appears
-     * @param  array  $query_parameters URL Query Parameters (other than page)
-     * @param  int    $total_items      Total items in full resultset for data
-     * @param  int    $per_page         Number of items per page
-     * @param  int    $display_links    Number of page number "buttons" to show
-     * @param  int    $page             Current page
+     * @var    boolean
+     * @since  1.0
+     */
+    protected $sef_url = false;
+
+    /**
+     * Use index.php
+     *
+     * @var    boolean
+     * @since  1.0
+     */
+    protected $index_in_url = false;
+
+    /**
+     * Construct
      *
      * @since  1.0
      */
-    public function __construct(
+    public function __construct()
+    {
+
+    }
+
+    /**
+     * Set pagination values
+     *
+     * @param  array   $data             Data to be displayed (not full results)
+     * @param  string  $page_url         URL for page on which paginated appears
+     * @param  array   $query_parameters URL Query Parameters (other than page)
+     * @param  int     $total_items      Total items in full resultset for data
+     * @param  int     $per_page         Number of items per page
+     * @param  int     $display_links    Number of page number "buttons" to show
+     * @param  int     $page             Current page
+     * @param  boolean $sef_url          Use SEF URLs?
+     * @param  boolean $index_in_url     Use index.php value in URL?
+     *
+     * @since  1.0
+     */
+    public function setPagination(
         array $data = array(),
         $page_url,
         array $query_parameters = array(),
         $total_items,
         $per_page,
         $display_links,
-        $page
+        $page,
+        $sef_url = false,
+        $index_in_url = false
     ) {
-        $this->data = $data;
-        $this->getIterator();
-
+        $this->data             = $data;
         $this->page_url         = $page_url;
         $this->query_parameters = $query_parameters;
-
-        $this->total_items = $total_items;
+        $this->total_items      = $total_items;
 
         if ((int)$per_page === 0) {
             $per_page = 9999999;
@@ -147,15 +170,14 @@ class Pagination implements PaginationInterface, IteratorAggregate, ArrayAccess,
         if ((int)$page > $this->total_items) {
             $page = 0;
         }
-        $this->page = $page;
 
-        $this->last_page = ceil($this->total_items / $per_page);
-
-        $this->display_links = $display_links;
-
+        $this->page               = $page;
+        $this->last_page          = ceil($this->total_items / $per_page);
+        $this->display_links      = $display_links;
         $this->start_display_page = 1;
         $this->stop_display_page  = $this->last_page;
         $temp                     = ceil($this->last_page / $this->display_links);
+
         for ($i = 1; $i < $temp + 1; $i ++) {
             if (($i * $this->display_links) + 1 >= $page
                 && $page >= ($i * $this->display_links) - $this->display_links + 1
@@ -163,6 +185,18 @@ class Pagination implements PaginationInterface, IteratorAggregate, ArrayAccess,
                 $this->start_display_page = ($i * $this->display_links) - $this->display_links + 1;
                 $this->stop_display_page  = ($i * $this->display_links) + 1;
             }
+        }
+
+        if ($sef_url === true) {
+            $this->sef_url = true;
+            if ($index_in_url === true) {
+                $this->index_in_url = true;
+            } else {
+                $this->index_in_url = false;
+            }
+        } else {
+            $this->sef_url      = false;
+            $this->index_in_url = true;
         }
     }
 
@@ -312,15 +346,34 @@ class Pagination implements PaginationInterface, IteratorAggregate, ArrayAccess,
             $page = $this->getLastPage();
         }
 
-        $url = $this->page_url . '?page=' . (int)$page;
+        if ($this->sef_url === true) {
+            return $this->setPageUrlSef($page);
+        }
+
+        return $this->setPageUrlParameters($page);
+    }
+
+    /**
+     * Set the Parameterized URL for the specified key
+     *
+     * @param   mixed $page
+     *
+     * @return  string
+     * @since   1.0
+     */
+    protected function setPageUrlParameters($page)
+    {
+        $url = $this->page_url;
+
+        if ($this->index_in_url === true) {
+            $url .= '/index.php';
+        }
+
+        $url .= '?start=' . (int)$page;
 
         if (is_array($this->query_parameters) && count($this->query_parameters) > 0) {
             foreach ($this->query_parameters as $key => $value) {
-                $url = $url
-                    . '&'
-                    . $this->query_parameters[$key]
-                    . '='
-                    . $this->query_parameters[$value];
+                $url .= '&' . $key . '=' . $value;
             }
         }
 
@@ -328,118 +381,33 @@ class Pagination implements PaginationInterface, IteratorAggregate, ArrayAccess,
     }
 
     /**
-     * Implements PHP's IteratorAggregate::getIterator()
+     * Set the SEF URL for the specified key
      *
-     * @return  $this
+     * @param   mixed $page
+     *
+     * @return  string
      * @since   1.0
      */
-    public function getIterator()
+    protected function setPageUrlSef($page)
     {
-        return new ArrayIterator($this->data);
-    }
+        $url = $this->page_url;
 
-    /**
-     * Set the array item for the specified key and value
-     *
-     * @param   int   $key
-     * @param   mixed $value
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    public function offsetSet($key, $value)
-    {
-        $key = (int)$key;
-
-        $this->data[$key] = $value;
-
-        return $this;
-    }
-
-    /**
-     * Set the array item for the specified key and value
-     * Implements PHP's ArrayAccess::offsetExists()
-     *
-     * @param   int $key
-     *
-     * @return  boolean
-     * @since   1.0
-     */
-    public function offsetExists($key)
-    {
-        $key = (int)$key;
-
-        if (array_key_exists($key, $this->data)) {
-            return true;
+        if ($this->index_in_url === true) {
+            $url .= '/index.php';
         }
 
-        return false;
-    }
+        $url .= '/start/' . (int)$page;
 
-    /**
-     * Get the array item specified by the key value
-     * Implements PHP's ArrayAccess::offsetSet()
-     *
-     * @param   int $key
-     *
-     * @return  null|mixed
-     * @since   1.0
-     */
-    public function offsetGet($key)
-    {
-        $key = (int)$key;
+        if (is_array($this->query_parameters) && count($this->query_parameters) > 0) {
+            foreach ($this->query_parameters as $key => $value) {
 
-        if (array_key_exists($key, $this->data)) {
-            return $this->data[$key];
+                $url .= '/'
+                    . $this->query_parameters[$key]
+                    . '/'
+                    . $this->query_parameters[$value];
+            }
         }
 
-        return null;
-    }
-
-    /**
-     * Unset the array item for the specified key
-     * Implements PHP's ArrayAccess::pageUnset()
-     *
-     * @param   int $key
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    public function offsetUnset($key)
-    {
-        $key = (int)$key;
-
-        if (array_key_exists($key, $this->data)) {
-            unset($this->data[$key]);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Determines if array has values or is empty
-     *
-     * @return  int
-     * @since   1.0
-     */
-    public function isEmpty()
-    {
-        if (count($this->data) === 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Count displayable items in array
-     * Implements PHP's Countable::count()
-     *
-     * @return  boolean
-     * @since   1.0
-     */
-    public function count()
-    {
-        return count($this->data);
+        return $url;
     }
 }

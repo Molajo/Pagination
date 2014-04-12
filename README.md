@@ -9,10 +9,10 @@ Data object ArrayIterator and easy pagination for PHP, framework independent.
 
 ## At a glance ...
 
-1. Get the `$page_url`, `query parameters` and `page` value from your preferred `Http Request Class.`
+1. Get the `page_url`, `query parameters` and `page` value from your preferred `Http Request Class.`
 1. Run a query (or produce a list of items) using normal `offset` and `row limit` criteria.
-2. Instantiate the `Pagination Adapter`, injecting it with the database query results and various pagination values.
-3. Use the pagination object when rendering content and pagination user interface.
+2. Instantiate the `Pagination` class, injecting it with the data and various pagination values.
+3. Use the pagination object to build the data needed to render the pagination interface.
 
 ```php
 
@@ -73,6 +73,7 @@ quickly.
 There are only a few commands. The first displays the Url for the page specified. A numeric
 page number can be provided, or one of the following literals: first, prev, current, next, and last.
 ```php
+
     <a href="<?php echo $pagination->getPageUrl('first'); ?>">First</a>
 ```
 
@@ -81,12 +82,14 @@ First and Previous and the Next and Last. Basically, the command is saying proce
 from the start value to the stop value.
 
 ```php
+
     for ($i = $pagination->getStartDisplayPage(); $i < $pagination->getStopDisplayPage(); $i++) {
 ```
 
 And, that's all there is to it. You can style your output, as desired.
 
 ```php
+
     <footer class="pagination">
         <a href="<?php echo $pagination->getPageUrl('first'); ?>">First</a>
         &nbsp;<a href="<?php echo $pagination->getPageUrl('prev'); ?>">«</a>
@@ -105,12 +108,14 @@ And, that's all there is to it. You can style your output, as desired.
 ### Step 1: Install composer in your project
 
 ```php
+
     curl -s https://getcomposer.org/installer | php
 ```
 
 ### Step 2: Create a **composer.json** file in your project root
 
 ```php
+
 {
     "require": {
         "Molajo/Pagination": "1.*"
@@ -121,15 +126,17 @@ And, that's all there is to it. You can style your output, as desired.
 ### Step 3: Install via composer
 
 ```php
+
     php composer.phar install
 ```
 
 ## Requirements and Compliance
  * PHP framework independent, no dependencies
- * Requires PHP 5.3, or above
+ * Requires PHP 5.4, or above
  * [Semantic Versioning](http://semver.org/)
  * Compliant with:
-    * [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md) and [PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md) Namespacing
+    * [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
+    * [PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md) Namespacing
     * [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) Coding Standards
  * [phpDocumentor2] (https://github.com/phpDocumentor/phpDocumentor2)
  * [phpUnit Testing] (https://github.com/sebastianbergmann/phpunit)

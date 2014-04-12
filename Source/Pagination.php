@@ -9,6 +9,7 @@
 namespace Molajo;
 
 use CommonApi\Render\PaginationInterface;
+use stdClass;
 
 /**
  * Pagination
@@ -22,14 +23,6 @@ use CommonApi\Render\PaginationInterface;
  */
 class Pagination implements PaginationInterface
 {
-    /**
-     * Data array
-     *
-     * @var    array
-     * @since  1.0
-     */
-    protected $data;
-
     /**
      * Base URL
      *
@@ -122,7 +115,6 @@ class Pagination implements PaginationInterface
     /**
      * Set pagination values
      *
-     * @param  array   $data             Data to be displayed (not full results)
      * @param  string  $base_url         Base URL for paginated page
      * @param  array   $query_parameters URL Query Parameters (other than start)
      * @param  int     $total_items      Total items in full resultset for data
@@ -134,8 +126,7 @@ class Pagination implements PaginationInterface
      *
      * @since  1.0
      */
-    public function setPagination(
-        array $data = array(),
+    public function getPaginationData(
         $base_url,
         array $query_parameters = array(),
         $total_items,
@@ -145,7 +136,8 @@ class Pagination implements PaginationInterface
         $sef_url = false,
         $index_in_url = false
     ) {
-        $this->data             = $data;
+        $display_links = 9999;
+
         $this->base_url         = $base_url;
         $this->query_parameters = $query_parameters;
         $this->total_items      = $total_items;
@@ -154,20 +146,25 @@ class Pagination implements PaginationInterface
             $items_per_page = 9999999;
             $current_page   = 1;
         }
+
         $this->items_per_page = $items_per_page;
 
-        if (((int)$current_page * $items_per_page) > $this->total_items) {
+        if ((int)$current_page > 0) {
+        } else {
             $current_page = 1;
         }
 
-        $this->current_page  = (int)$current_page;
-        $this->last_page     = ceil($this->total_items / $items_per_page);
-        $this->display_links = $display_links;
+        if (($current_page * $items_per_page) > $this->total_items) {
+            $current_page = 1;
+        }
+
+        $this->current_page = $current_page;
+        $this->last_page    = ceil($this->total_items / $items_per_page);
 
         if ($display_links < $this->last_page - $this->current_page + 1) {
-            $this->display_links = ($this->last_page - $this->current_page + 1) < $display_links;
-        } else {
             $this->display_links = $display_links;
+        } else {
+            $this->display_links = $this->last_page - $this->current_page + 1;
         }
 
         $this->start_links_page_number = 1;
@@ -196,6 +193,31 @@ class Pagination implements PaginationInterface
             $this->sef_url      = false;
             $this->index_in_url = true;
         }
+
+        $row                          = new stdClass();
+
+        $row->first_page_number       = $this->getFirstPage();
+        $row->first_page_link         = $this->getPageUrl('first');
+        $row->previous_page_number    = $this->getPrevPage();
+        $row->previous_page_link      = $this->getPageUrl('previous');
+        $row->current_page_number     = $this->getCurrentPage();
+        $row->current_page_link       = $this->getPageUrl('current');
+        $row->next_page_number        = $this->getNextPage();
+        $row->next_page_link          = $this->getPageUrl('next');
+        $row->last_page_number        = $this->getLastPage();
+        $row->last_page_link          = $this->getPageUrl('last');
+        $row->total_items             = $this->getTotalItems();
+        $row->start_links_page_number = $this->getStartLinksPage();
+        $row->stop_links_page_number  = $this->getStopLinksPage();
+
+        $row->page_links_array = array();
+        for ($i = $row->start_links_page_number;
+             $i < $row->stop_links_page_number + 1;
+             $i ++) {
+            $row->page_links_array[$i] = $this->getPageUrl($i);
+        }
+
+        return $row;
     }
 
     /**
@@ -204,7 +226,7 @@ class Pagination implements PaginationInterface
      * @return  int
      * @since   1.0
      */
-    public function getFirstPage()
+    protected function getFirstPage()
     {
         if ((int)$this->last_page === 0) {
             return 0;
@@ -219,7 +241,7 @@ class Pagination implements PaginationInterface
      * @return  int
      * @since   1.0
      */
-    public function getPrevPage()
+    protected function getPrevPage()
     {
         if ((1 > (int)$this->current_page - 1)) {
             return (int)$this->current_page;
@@ -234,7 +256,7 @@ class Pagination implements PaginationInterface
      * @return  int
      * @since   1.0
      */
-    public function getCurrentPage()
+    protected function getCurrentPage()
     {
         return (int)$this->current_page;
     }
@@ -245,7 +267,7 @@ class Pagination implements PaginationInterface
      * @return  int
      * @since   1.0
      */
-    public function getNextPage()
+    protected function getNextPage()
     {
         if ((int)$this->current_page + 1 > (int)$this->last_page) {
             return (int)$this->last_page;
@@ -260,7 +282,7 @@ class Pagination implements PaginationInterface
      * @return  int
      * @since   1.0
      */
-    public function getLastPage()
+    protected function getLastPage()
     {
         return (int)$this->last_page;
     }
@@ -271,7 +293,7 @@ class Pagination implements PaginationInterface
      * @return  int
      * @since   1.0
      */
-    public function getStartLinksPage()
+    protected function getStartLinksPage()
     {
         return (int)$this->start_links_page_number;
     }
@@ -282,20 +304,9 @@ class Pagination implements PaginationInterface
      * @return  int
      * @since   1.0
      */
-    public function getStopLinksPage()
+    protected function getStopLinksPage()
     {
         return (int)$this->stop_links_page_number;
-    }
-
-    /**
-     * Get data paginated
-     *
-     * @return  array
-     * @since   1.0
-     */
-    public function getData()
-    {
-        return $this->data;
     }
 
     /**
@@ -304,7 +315,7 @@ class Pagination implements PaginationInterface
      * @return  int
      * @since   1.0
      */
-    public function getTotalItems()
+    protected function getTotalItems()
     {
         return (int)$this->total_items;
     }
@@ -317,7 +328,7 @@ class Pagination implements PaginationInterface
      * @return  string
      * @since   1.0
      */
-    public function getPageUrl($page_number)
+    protected function getPageUrl($page_number)
     {
         if (strtolower($page_number) == 'first') {
             $page_number = $this->getFirstPage();

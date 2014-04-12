@@ -4,6 +4,12 @@
 
 html, body {
     height: 100%;
+    padding: .2em;
+}
+
+.old-school {
+    width: 95%;
+    margin: 0 auto;
 }
 
 .page-wrap {
@@ -31,3 +37,5 @@ html, body {
     list-style-type: none;
     padding-right: 2em;
 }
+
+.current { background-color: red; }

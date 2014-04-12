@@ -8,5 +8,5 @@
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 $path = __DIR__;
-$molajito_base = substr($path, 0, strlen($path) - 18);
-include $molajito_base . '/.dev/Sample/Bootstrap/Index.php';
+$pagination_base = substr($path, 0, strlen($path) - 18);
+include $pagination_base . '/.dev/Sample/Bootstrap/Index.php';

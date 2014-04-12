@@ -1,6 +1,6 @@
 <?php
 /**
- * Parse Test
+ * Pagination Test
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -8,7 +8,7 @@
  */
 namespace Molajo\Pagination\Test;
 
-use Molajo\Pagination\Parse;
+use Molajo\Pagination;
 
 /**
  * Pagination Test
@@ -18,12 +18,12 @@ use Molajo\Pagination\Parse;
  * @copyright  2014 Amy Stephen. All rights reserved.
  * @since      1.0
  */
-class ParseTest extends \PHPUnit_Framework_TestCase
+class PaginationTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Object
      */
-    protected $parse;
+    protected $pagination;
 
     /**
      * Initialises Adapter
@@ -38,15 +38,9 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      * @return  $this
      * @since   1.0
      */
-    public function testParse()
+    public function testPagination()
     {
-        $include_path = __DIR__ . '/Parse/Include.phtml';
-
-        ob_start();
-        include $include_path;
-        $rendered_page = ob_get_clean();
-
-        $this->parse = new Parse($rendered_page, array(), null);
+        $this->pagination = new Pagination();
 
         $results = $this->parse->parse();
 

@@ -29,7 +29,7 @@ class Pagination implements PaginationInterface
      * @var    int
      * @since  1.0
      */
-    protected $base_url;
+    protected $visited_page_url;
 
     /**
      * URL Filters
@@ -37,10 +37,10 @@ class Pagination implements PaginationInterface
      * @var    array
      * @since  1.0
      */
-    protected $query_parameters = array();
+    protected $other_query_parameters = array();
 
     /**
-     * Total Items
+     * Count of total items
      * -> ALL, includes previous, current, next
      *
      * @var    int
@@ -49,36 +49,36 @@ class Pagination implements PaginationInterface
     protected $total_items;
 
     /**
-     * Items per page
+     * Configuration setting for the number of items to display per page
      *
      * @var    int
      * @since  1.0
      */
-    protected $items_per_page = 10;
+    protected $display_items_per_page_count = 10;
 
     /**
-     * Number of page links to show
+     * Configuration setting for the number of page links to show
      *
      * @var    int
      * @since  1.0
      */
-    protected $display_links = 5;
+    protected $display_page_link_count = 5;
 
     /**
-     * SEF URLs (true or false)
+     * Configuration setting for the whether to create SEF URLs (true or false)
      *
      * @var    boolean
      * @since  1.0
      */
-    protected $sef_url = false;
+    protected $create_sef_url_indicator = false;
 
     /**
-     * Use index.php
+     * Configuration setting for whether to use index.php in the URL
      *
      * @var    boolean
      * @since  1.0
      */
-    protected $index_in_url = false;
+    protected $display_index_in_url_indicator = false;
 
     /**
      * Last Page
@@ -89,12 +89,12 @@ class Pagination implements PaginationInterface
     protected $last_page;
 
     /**
-     * Current Page
+     * Current value for "start=" URL parameter
      *
      * @var    int
      * @since  1.0
      */
-    protected $current_page = 0;
+    protected $current_start_parameter = 0;
 
     /**
      * Start Page Number
@@ -113,102 +113,116 @@ class Pagination implements PaginationInterface
     protected $stop_links_page_number = 0;
 
     /**
-     * Set pagination values
+     * Get Pagination Row Object for input data to rendering
      *
-     * @param  string  $base_url         Base URL for paginated page
-     * @param  array   $query_parameters URL Query Parameters (other than start)
-     * @param  int     $total_items      Total items in full resultset for data
-     * @param  int     $items_per_page   Number of items per page
-     * @param  int     $display_links    Number of page number "links" to show
-     * @param  int     $current_page     Current page
-     * @param  boolean $sef_url          Use SEF URLs?
-     * @param  boolean $index_in_url     Use index.php value in URL?
+     * << < 1 2 3 > >>
      *
-     * @since  1.0
+     * @param   int     $display_items_per_page_count
+     * @param   int     $display_page_link_count
+     * @param   boolean $create_sef_url_indicator
+     * @param   boolean $display_index_in_url_indicator
+     * @param   int     $total_items
+     * @param   string  $visited_page_url
+     * @param   int     $current_start_parameter
+     * @param   array   $other_query_parameters
+     *
+     * @since   1.0
+     * @return  object
      */
     public function getPaginationData(
-        $base_url,
-        array $query_parameters = array(),
+        $display_items_per_page_count = 5,
+        $display_page_link_count = 10,
+        $create_sef_url_indicator = false,
+        $display_index_in_url_indicator = true,
         $total_items,
-        $items_per_page,
-        $display_links,
-        $current_page,
-        $sef_url = false,
-        $index_in_url = false
+        $visited_page_url,
+        $current_start_parameter,
+        $other_query_parameters
     ) {
-        $display_links = 9999;
+        $display_page_link_count = 9999;
 
-        $this->base_url         = $base_url;
-        $this->query_parameters = $query_parameters;
-        $this->total_items      = $total_items;
+        $this->visited_page_url       = $visited_page_url;
+        $this->other_query_parameters = $other_query_parameters;
+        $this->total_items            = $total_items;
 
-        if ((int)$items_per_page === 0) {
-            $items_per_page = 9999999;
-            $current_page   = 1;
+        if ((int)$display_items_per_page_count === 0) {
+            $display_items_per_page_count = 9999999;
+            $current_start_parameter      = 1;
         }
 
-        $this->items_per_page = $items_per_page;
+        $this->display_items_per_page_count = $display_items_per_page_count;
 
-        if ((int)$current_page > 0) {
+        if ((int)$current_start_parameter > 0) {
         } else {
-            $current_page = 1;
+            $current_start_parameter = 1;
         }
 
-        if (($current_page * $items_per_page) > $this->total_items) {
-            $current_page = 1;
+        if (($current_start_parameter * $display_items_per_page_count) > $this->total_items) {
+            $current_start_parameter = 1;
         }
 
-        $this->current_page = $current_page;
-        $this->last_page    = ceil($this->total_items / $items_per_page);
+        $this->current_start_parameter = $current_start_parameter;
+        $this->last_page               = ceil($this->total_items / $display_items_per_page_count);
 
-        if ($display_links < $this->last_page - $this->current_page + 1) {
-            $this->display_links = $display_links;
+        if ($display_page_link_count < $this->last_page - $this->current_start_parameter + 1) {
+            $this->display_page_link_count = $display_page_link_count;
         } else {
-            $this->display_links = $this->last_page - $this->current_page + 1;
+            $this->display_page_link_count = $this->last_page - $this->current_start_parameter + 1;
         }
 
         $this->start_links_page_number = 1;
         $this->stop_links_page_number  = $this->last_page;
-        $temp                          = ceil($this->last_page / $this->display_links);
+        $temp                          = ceil($this->last_page / $this->display_page_link_count);
 
         for ($i = 1; $i < $temp + 1; $i ++) {
-            if (($i * $this->display_links) + 1 >= $current_page
-                && $current_page >= ($i * $this->display_links) - $this->display_links + 1
+            if (($i * $this->display_page_link_count) + 1 >= $current_start_parameter
+                && $current_start_parameter >= ($i * $this->display_page_link_count) - $this->display_page_link_count + 1
             ) {
-                $this->start_links_page_number = ($i * $this->display_links) - $this->display_links + 1;
-                $this->stop_links_page_number  = ($i * $this->display_links);
+                $this->start_links_page_number = ($i * $this->display_page_link_count) - $this->display_page_link_count + 1;
+                $this->stop_links_page_number  = ($i * $this->display_page_link_count);
 
                 break;
             }
         }
 
-        if ($sef_url === true) {
-            $this->sef_url = true;
-            if ($index_in_url === true) {
-                $this->index_in_url = true;
+        if ($create_sef_url_indicator === true) {
+            $this->create_sef_url_indicator = true;
+            if ($display_index_in_url_indicator === true) {
+                $this->display_index_in_url_indicator = true;
             } else {
-                $this->index_in_url = false;
+                $this->display_index_in_url_indicator = false;
             }
         } else {
-            $this->sef_url      = false;
-            $this->index_in_url = true;
+            $this->create_sef_url_indicator       = false;
+            $this->display_index_in_url_indicator = true;
         }
 
-        $row                          = new stdClass();
+        return $this->createPaginationRow();
+    }
 
-        $row->first_page_number       = $this->getFirstPage();
-        $row->first_page_link         = $this->getPageUrl('first');
-        $row->previous_page_number    = $this->getPrevPage();
-        $row->previous_page_link      = $this->getPageUrl('previous');
-        $row->current_page_number     = $this->getCurrentPage();
-        $row->current_page_link       = $this->getPageUrl('current');
-        $row->next_page_number        = $this->getNextPage();
-        $row->next_page_link          = $this->getPageUrl('next');
-        $row->last_page_number        = $this->getLastPage();
-        $row->last_page_link          = $this->getPageUrl('last');
-        $row->total_items             = $this->getTotalItems();
-        $row->start_links_page_number = $this->getStartLinksPage();
-        $row->stop_links_page_number  = $this->getStopLinksPage();
+    /**
+     * Create Pagination Row Object for rendering
+     *
+     * @since   1.0
+     * @return  object
+     */
+    protected function createPaginationRow()
+    {
+        $row = new stdClass();
+
+        $row->first_page_number              = $this->getFirstPage();
+        $row->first_page_link                = $this->getPageUrl('first');
+        $row->previous_page_number           = $this->getPrevPage();
+        $row->previous_page_link             = $this->getPageUrl('previous');
+        $row->current_start_parameter_number = $this->getCurrentPage();
+        $row->current_start_parameter_link   = $this->getPageUrl('current');
+        $row->next_page_number               = $this->getNextPage();
+        $row->next_page_link                 = $this->getPageUrl('next');
+        $row->last_page_number               = $this->getLastPage();
+        $row->last_page_link                 = $this->getPageUrl('last');
+        $row->total_items                    = $this->getTotalItems();
+        $row->start_links_page_number        = $this->getStartLinksPage();
+        $row->stop_links_page_number         = $this->getStopLinksPage();
 
         $row->page_links_array = array();
         for ($i = $row->start_links_page_number;
@@ -243,11 +257,11 @@ class Pagination implements PaginationInterface
      */
     protected function getPrevPage()
     {
-        if ((1 > (int)$this->current_page - 1)) {
-            return (int)$this->current_page;
+        if ((1 > (int)$this->current_start_parameter - 1)) {
+            return (int)$this->current_start_parameter;
         }
 
-        return (int)$this->current_page - 1;
+        return (int)$this->current_start_parameter - 1;
     }
 
     /**
@@ -258,7 +272,7 @@ class Pagination implements PaginationInterface
      */
     protected function getCurrentPage()
     {
-        return (int)$this->current_page;
+        return (int)$this->current_start_parameter;
     }
 
     /**
@@ -269,11 +283,11 @@ class Pagination implements PaginationInterface
      */
     protected function getNextPage()
     {
-        if ((int)$this->current_page + 1 > (int)$this->last_page) {
+        if ((int)$this->current_start_parameter + 1 > (int)$this->last_page) {
             return (int)$this->last_page;
         }
 
-        return (int)$this->current_page + 1;
+        return (int)$this->current_start_parameter + 1;
     }
 
     /**
@@ -352,7 +366,7 @@ class Pagination implements PaginationInterface
             $page_number = $this->getLastPage();
         }
 
-        if ($this->sef_url === true) {
+        if ($this->create_sef_url_indicator === true) {
             return $this->setPageUrlSef($page_number);
         }
 
@@ -369,16 +383,16 @@ class Pagination implements PaginationInterface
      */
     protected function setPageUrlParameters($page_number)
     {
-        $url = $this->base_url;
+        $url = $this->visited_page_url;
 
-        if ($this->index_in_url === true) {
+        if ($this->display_index_in_url_indicator === true) {
             $url .= '/index.php';
         }
 
         $url .= '?start=' . (int)$page_number;
 
-        if (is_array($this->query_parameters) && count($this->query_parameters) > 0) {
-            foreach ($this->query_parameters as $key => $value) {
+        if (is_array($this->other_query_parameters) && count($this->other_query_parameters) > 0) {
+            foreach ($this->other_query_parameters as $key => $value) {
                 $url .= '&' . $key . '=' . $value;
             }
         }
@@ -396,16 +410,16 @@ class Pagination implements PaginationInterface
      */
     protected function setPageUrlSef($page_number)
     {
-        $url = $this->base_url;
+        $url = $this->visited_page_url;
 
-        if ($this->index_in_url === true) {
+        if ($this->display_index_in_url_indicator === true) {
             $url .= '/index.php';
         }
 
         $url .= '/start/' . (int)$page_number;
 
-        if (is_array($this->query_parameters) && count($this->query_parameters) > 0) {
-            foreach ($this->query_parameters as $key => $value) {
+        if (is_array($this->other_query_parameters) && count($this->other_query_parameters) > 0) {
+            foreach ($this->other_query_parameters as $key => $value) {
                 $url .= '/' . $key . '/' . $value;
             }
         }

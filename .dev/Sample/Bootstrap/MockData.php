@@ -42,7 +42,7 @@ class MockData
      * @var    int
      * @since  1.0
      */
-    protected $items_per_page = 10;
+    protected $display_items_per_page_count = 10;
 
     /**
      * Number of page links to show
@@ -50,7 +50,7 @@ class MockData
      * @var    int
      * @since  1.0
      */
-    protected $display_links = 5;
+    protected $display_page_link_count = 5;
     /**
      * Class Constructor
      *
@@ -60,7 +60,7 @@ class MockData
      */
     public function __construct(
         $start = 1,
-        $items_per_page = 3
+        $display_items_per_page_count = 3
     ) {
         if ((int)$start < 1) {
             $this->start = 1;
@@ -68,7 +68,7 @@ class MockData
             $this->start = (int)$start;
         }
 
-        $this->items_per_page = (int)$items_per_page;
+        $this->display_items_per_page_count = (int)$display_items_per_page_count;
 
         $this->createMockData();
     }
@@ -88,10 +88,10 @@ class MockData
 
         foreach ($this->data as $data) {
 
-            if ($i < ($this->start * $this->items_per_page) - $this->items_per_page) {
+            if ($i < ($this->start * $this->display_items_per_page_count) - $this->display_items_per_page_count) {
                 // skip for previous pages
 
-            } elseif ($count_return_data < $this->items_per_page) {
+            } elseif ($count_return_data < $this->display_items_per_page_count) {
                 $count_return_data ++;
                 $return_data[] = $data;
             }

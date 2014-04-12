@@ -27,7 +27,7 @@ Data object ArrayIterator and easy pagination for PHP, framework independent.
 
     /** Application Configuration */
     $per_page = 3;          // How many items should display on the page?
-    $display_links = 3;     // How many numeric page links should display in the pagination?
+    $display_page_link_count = 3;     // How many numeric page links should display in the pagination?
 
     /** Instantiate the Pagination Adapter */
     use Molajo\Pagination\Adapter as Pagination;
@@ -37,7 +37,7 @@ Data object ArrayIterator and easy pagination for PHP, framework independent.
         $query_parameters,
         $total_items,
         $per_page,
-        $display_links,
+        $display_page_link_count,
         $page
         );
 

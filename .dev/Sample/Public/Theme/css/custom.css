@@ -5,6 +5,7 @@
 html, body {
     height: 100%;
     padding: .2em;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
 }
 
 .old-school {
@@ -38,4 +39,16 @@ html, body {
     padding-right: 2em;
 }
 
-.current { background-color: red; }
+.current {
+    background-color: red;
+}
+
+header {
+    margin-bottom: .2em;
+    padding-bottom: .4em;
+}
+
+footer {
+    margin-top: .2em;
+    padding-top: .4em;
+}

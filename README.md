@@ -63,44 +63,57 @@ Data object ArrayIterator and easy pagination for PHP, framework independent.
 
 ### Working Example
 
-A working example of a blog page in the [.dev/Example folder](https://github.com/Molajo/Pagination/tree/master/.dev/Example).
-It demonstrates how to use the pagination with an Http Request and database simulation. You
-don't have to hook it up to your database, the example works right out of the box on your
-localhost with no setup. The code is well documented in order to help you get up and running
-quickly.
+A working example of a Pagination View is in the
+[.dev/Sample/ Folder](https://github.com/Molajo/Pagination/tree/master/.dev/Example). To see the demo
+on your local website, create an Apache Host using
+[the Public Folder](https://github.com/Molajo/Pagination/tree/master/.dev/Sample/Public) as the Disk Location.
+Then, use the Server Name as the address in your browser.
 
-
-There are only a few commands. The first displays the Url for the page specified. A numeric
-page number can be provided, or one of the following literals: first, prev, current, next, and last.
-```php
-
-    <a href="<?php echo $pagination->getPageUrl('first'); ?>">First</a>
-```
-
-The other two commands are used in the loop to display the numeric page links between the
-First and Previous and the Next and Last. Basically, the command is saying process this loop
-from the start value to the stop value.
+The working example demonstrates how to use the pagination with an Http Request and database simulation. You
+don't have to hook it up to your database, the example works right out of the box with only the example files.
+The code is well documented in order to help you get up and running quickly.
 
 ```php
 
-    for ($i = $pagination->getStartDisplayPage(); $i < $pagination->getStopDisplayPage(); $i++) {
-```
+<nav>
+    <ul class="pagination">
+        <?php if ((int)$row->first_page_number == (int)$row->current_start_parameter_number) : ?>
+            <li>&laquo; &laquo;</li>
+        <?php else : ?>
+            <li><a href="<?= $row->first_page_link; ?>">&laquo; &laquo;</a></li>
+        <?php endif; ?>
 
-And, that's all there is to it. You can style your output, as desired.
+        <?php if ((int)$row->previous_page_number == (int)$row->current_start_parameter_number) : ?>
+            <li>&laquo;</li>
+        <?php else : ?>
+            <li><a href="<?= $row->previous_page_link; ?>">&laquo;</a></li>
+        <?php endif; ?>
 
-```php
-
-    <footer class="pagination">
-        <a href="<?php echo $pagination->getPageUrl('first'); ?>">First</a>
-        &nbsp;<a href="<?php echo $pagination->getPageUrl('prev'); ?>">«</a>
         <?php
-        for ($i = $pagination->getStartDisplayPage(); $i < $pagination->getStopDisplayPage(); $i++) { ?>
-            <a href="<?php echo $pagination->getPageUrl($i); ?>"><?php echo $i; ?></a>
-        <?php
-        } ?>
-        <a href="<?php echo $pagination->getPageUrl('next'); ?>">»</a>
-        &nbsp;<a href="<?php echo $pagination->getPageUrl('last'); ?>">Last</a>
-    </footer>
+        for ($i = $row->start_links_page_number;
+             $i < $row->stop_links_page_number + 1;
+             $i ++) {
+            if ((int)$i == (int)$row->current_start_parameter_number) : ?>
+                <li class="current">
+            <?php else : ?>
+                <li>
+            <?php endif; ?>
+            <a href="<?= $row->page_links_array[$i]; ?>"><?= $i; ?></a></li>
+        <?php } ?>
+
+        <?php if ((int)$row->next_page_number == (int)$row->current_start_parameter_number) : ?>
+            <li>&raquo;</li>
+        <?php else : ?>
+            <li><a href="<?= $row->next_page_link; ?>">&raquo;</a></li>
+        <?php endif; ?>
+
+        <?php if ((int)$row->last_page_number == (int)$row->current_start_parameter_number) : ?>
+            <li>&raquo; &raquo;</li>
+        <?php else : ?>
+            <li><a href="<?= $row->last_page_link; ?>">&raquo; &raquo;</a></li>
+        <?php endif; ?>
+    </ul>
+</nav>
 ```
 
 ## Install using Composer from Packagist

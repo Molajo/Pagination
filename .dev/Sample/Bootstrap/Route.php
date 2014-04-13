@@ -54,7 +54,7 @@ if (strtolower(substr($page_url, - 1)) == '/') {
 /**
  *  $parameter_start
  */
-$parameter_start    = '';
+$parameter_start = '';
 
 $parameter_array = explode('&', $query_string);
 foreach ($parameter_array as $pair) {
@@ -64,7 +64,7 @@ foreach ($parameter_array as $pair) {
     if (count($pair_array) == 2) {
 
         if (strtolower($pair_array[0]) == 'start') {
-            $parameter_start = (int) trim(strtolower($pair_array[1]));
+            $parameter_start = (int)trim(strtolower($pair_array[1]));
         }
     }
 }

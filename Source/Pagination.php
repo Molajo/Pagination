@@ -14,7 +14,7 @@ use stdClass;
 /**
  * Pagination
  *
- * << < 1 2 3 > >>
+ *   <<  <  1  2  3  >  >>
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
@@ -23,31 +23,6 @@ use stdClass;
  */
 class Pagination implements PaginationInterface
 {
-    /**
-     * Base URL
-     *
-     * @var    int
-     * @since  1.0
-     */
-    protected $visited_page_url;
-
-    /**
-     * URL Filters
-     *
-     * @var    array
-     * @since  1.0
-     */
-    protected $other_query_parameters = array();
-
-    /**
-     * Count of total items
-     * -> ALL, includes previous, current, next
-     *
-     * @var    int
-     * @since  1.0
-     */
-    protected $total_items;
-
     /**
      * Configuration setting for the number of items to display per page
      *
@@ -81,12 +56,21 @@ class Pagination implements PaginationInterface
     protected $display_index_in_url_indicator = false;
 
     /**
-     * Last Page
+     * Base URL
      *
      * @var    int
      * @since  1.0
      */
-    protected $last_page;
+    protected $visited_page_url;
+
+    /**
+     * Count of total items
+     * -> ALL, includes previous, current, next
+     *
+     * @var    int
+     * @since  1.0
+     */
+    protected $total_items;
 
     /**
      * Current value for "start=" URL parameter
@@ -95,6 +79,22 @@ class Pagination implements PaginationInterface
      * @since  1.0
      */
     protected $current_start_parameter = 0;
+
+    /**
+     * URL Filters
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $other_query_parameters = array();
+
+    /**
+     * Last Page
+     *
+     * @var    int
+     * @since  1.0
+     */
+    protected $last_page;
 
     /**
      * Start Page Number
@@ -131,7 +131,7 @@ class Pagination implements PaginationInterface
      */
     public function getPaginationData(
         $display_items_per_page_count = 5,
-        $display_page_link_count = 10,
+        $display_page_link_count = 5,
         $create_sef_url_indicator = false,
         $display_index_in_url_indicator = true,
         $total_items,
@@ -139,51 +139,20 @@ class Pagination implements PaginationInterface
         $current_start_parameter,
         $other_query_parameters
     ) {
-        $display_page_link_count = 9999;
-
-        $this->visited_page_url       = $visited_page_url;
-        $this->other_query_parameters = $other_query_parameters;
-        $this->total_items            = $total_items;
-
         if ((int)$display_items_per_page_count === 0) {
             $display_items_per_page_count = 9999999;
             $current_start_parameter      = 1;
+            $display_page_link_count      = 0;
         }
 
         $this->display_items_per_page_count = $display_items_per_page_count;
 
-        if ((int)$current_start_parameter > 0) {
-        } else {
-            $current_start_parameter = 1;
+        if ((int)$display_page_link_count < 1) {
+            $display_page_link_count = 5;
         }
 
-        if (($current_start_parameter * $display_items_per_page_count) > $this->total_items) {
-            $current_start_parameter = 1;
-        }
+        $this->display_page_link_count = (int)$display_page_link_count;
 
-        $this->current_start_parameter = $current_start_parameter;
-        $this->last_page               = ceil($this->total_items / $display_items_per_page_count);
-
-        if ($display_page_link_count < $this->last_page - $this->current_start_parameter + 1) {
-            $this->display_page_link_count = $display_page_link_count;
-        } else {
-            $this->display_page_link_count = $this->last_page - $this->current_start_parameter + 1;
-        }
-
-        $this->start_links_page_number = 1;
-        $this->stop_links_page_number  = $this->last_page;
-        $temp                          = ceil($this->last_page / $this->display_page_link_count);
-
-        for ($i = 1; $i < $temp + 1; $i ++) {
-            if (($i * $this->display_page_link_count) + 1 >= $current_start_parameter
-                && $current_start_parameter >= ($i * $this->display_page_link_count) - $this->display_page_link_count + 1
-            ) {
-                $this->start_links_page_number = ($i * $this->display_page_link_count) - $this->display_page_link_count + 1;
-                $this->stop_links_page_number  = ($i * $this->display_page_link_count);
-
-                break;
-            }
-        }
 
         if ($create_sef_url_indicator === true) {
             $this->create_sef_url_indicator = true;
@@ -197,7 +166,61 @@ class Pagination implements PaginationInterface
             $this->display_index_in_url_indicator = true;
         }
 
+        $this->total_items      = (int)$total_items;
+        $this->visited_page_url = $visited_page_url;
+
+        if ((int)$current_start_parameter > 0) {
+        } else {
+            $current_start_parameter = 1;
+        }
+
+        if (($current_start_parameter * $this->display_items_per_page_count) > $this->total_items) {
+            $current_start_parameter = 1;
+        }
+
+        $this->current_start_parameter = $current_start_parameter;
+
+        $this->other_query_parameters = $other_query_parameters;
+
+        $this->calculateStartAndStopLinks();
+
         return $this->createPaginationRow();
+    }
+
+    /**
+     * Calculate start and stop links
+     *
+     * @since   1.0
+     * @return  object
+     */
+    protected function calculateStartAndStopLinks()
+    {
+        $this->last_page               = ceil($this->total_items / $this->display_items_per_page_count);
+        $this->start_links_page_number = 1;
+        $this->stop_links_page_number  = $this->last_page;
+
+        if ($this->current_start_parameter - 1 > $this->start_links_page_number) {
+            $this->start_links_page_number = $this->current_start_parameter - 1;
+        }
+
+        if ($this->start_links_page_number + $this->display_page_link_count - 1 > $this->last_page) {
+            $this->stop_links_page_number  = $this->last_page;
+            $this->start_links_page_number = $this->last_page - $this->display_page_link_count + 1;
+        } else {
+            $this->stop_links_page_number = $this->start_links_page_number + $this->display_page_link_count - 1;
+        }
+
+        if ($this->start_links_page_number < 1) {
+            $this->start_links_page_number = 1;
+        }
+
+        if ($this->stop_links_page_number > $this->last_page) {
+            $this->stop_links_page_number = $this->last_page;
+        }
+
+        $this->display_page_link_count = $this->stop_links_page_number - $this->start_links_page_number + 1;
+
+        return $this;
     }
 
     /**

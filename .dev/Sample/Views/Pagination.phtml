@@ -25,11 +25,11 @@
         for ($i = $row->start_links_page_number;
              $i < $row->stop_links_page_number + 1;
              $i ++) {
-                if ((int)$i == (int)$row->current_start_parameter_number) : ?>
-                    <li class="current">
-                <?php else : ?>
-                    <li>
-                <?php endif; ?>
+            if ((int)$i == (int)$row->current_start_parameter_number) : ?>
+                <li class="current">
+            <?php else : ?>
+                <li>
+            <?php endif; ?>
             <a href="<?= $row->page_links_array[$i]; ?>"><?= $i; ?></a></li>
         <?php } ?>
 

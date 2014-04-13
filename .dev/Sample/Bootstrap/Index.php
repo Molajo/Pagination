@@ -17,8 +17,8 @@ include __DIR__ . '/RuntimeData.php';
 include __DIR__ . '/MockData.php';
 
 $data_instance = new \Molajo\Pagination\MockData(
-        (int) $runtime_data->route->parameter_start,
-        (int) $runtime_data->parameters->display_items_per_page_count
+    (int)$runtime_data->route->parameter_start,
+    (int)$runtime_data->parameters->display_items_per_page_count
 );
 
 $mockdata = $data_instance->getData();
@@ -30,19 +30,18 @@ $pagination_instance = new \Molajo\Pagination();
 
 $row = $pagination_instance->getPaginationData(
 
-    // Configuration: variables your application must provide
-    $runtime_data->parameters->display_items_per_page_count,    // How many items are displayed on each page?
-    $runtime_data->parameters->display_page_link_count,         // 3 in this example => << < 1 2 3 > >>
-    $runtime_data->parameters->create_sef_url_indicator,        // Should SEF URLs be returned? true or false
-    $runtime_data->parameters->display_index_in_url_indicator,  // Should index.php appear in the URL? true or false
+// Configuration: variables your application must provide
+    $runtime_data->parameters->display_items_per_page_count, // How many items are displayed on each page?
+    $runtime_data->parameters->display_page_link_count, // 3 in this example => << < 1 2 3 > >>
+    $runtime_data->parameters->create_sef_url_indicator, // Should SEF URLs be returned? true or false
+    $runtime_data->parameters->display_index_in_url_indicator, // Should index.php appear in the URL? true or false
 
     // Primary Data: the total number of rows that could have been returned for the primary data
     $data_instance->getTotalItemsCount(),
-
     // Router: data from your router to help build the URLs for the pagination links
-    $runtime_data->route->page,                // URL for page on which paginated appears
-    $runtime_data->route->parameter_start,     // Query parameter 'start', for example, "?start=3" or "/start/3"
-    array()                                    // Other query parameters like "&tag=dog" or "/category/dog"
+    $runtime_data->route->page, // URL for page on which paginated appears
+    $runtime_data->route->parameter_start, // Query parameter 'start', for example, "?start=3" or "/start/3"
+    array() // Other query parameters like "&tag=dog" or "/category/dog"
 );
 
 // The results of the previous command are stored in $row

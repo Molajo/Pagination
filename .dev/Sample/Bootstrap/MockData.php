@@ -51,6 +51,7 @@ class MockData
      * @since  1.0
      */
     protected $display_page_link_count = 5;
+
     /**
      * Class Constructor
      *

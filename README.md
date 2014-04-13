@@ -17,7 +17,7 @@ Provides easy pagination data for any PHP application.
 ## Detailed Example
 
 The following is from a working example of a Pagination View located in  in the
-[.dev/Sample/ Folder](https://github.com/Molajo/Pagination/tree/master/.dev/Sample). To see the demo
+[.dev/Sample](https://github.com/Molajo/Pagination/tree/master/.dev/Sample) folder. To see the demo
 on your local website, create an Apache Host using
 [the Public Folder](https://github.com/Molajo/Pagination/tree/master/.dev/Sample/Public) as the Disk Location.
 Then, use the Server Name as the address in your browser.
@@ -188,11 +188,11 @@ to demonstrate how to use the pagination data for rendering.
  * Compliant with:
     * [PSR-1](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md) Basic Coding Standards
     * [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) Coding Style
-    * [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) Coding Standards
+    * [PSR-4](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md) Namespacing
  * [phpDocumentor2] (https://github.com/phpDocumentor/phpDocumentor2)
  * [phpUnit Testing] (https://github.com/sebastianbergmann/phpunit)
  * Author [AmyStephen](http://twitter.com/AmyStephen)
  * [Travis Continuous Improvement] (https://travis-ci.org/profile/Molajo)
- * Listed on [Packagist] (http://packagist.org) and installed using [Composer] (http://getcomposer.org/)
+ * Listed on [Packagist] (https://packagist.org/packages/molajo/pagination) and installed using [Composer] (http://getcomposer.org/)
  * Use github to submit [pull requests](https://github.com/Molajo/Pagination/pulls) and [features](https://github.com/Molajo/Pagination/issues)
  * Licensed under the MIT License - see the `LICENSE` file for details

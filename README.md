@@ -14,8 +14,10 @@ Provides easy pagination data for any PHP application.
 2. Instantiate the `Molajo\Pagination` class, injecting it with the data and various pagination values.
 3. Use the pagination data object to render the pagination interface.
 
+## Detailed Example
+
 The following is from a working example of a Pagination View located in  in the
-[.dev/Sample/ Folder](https://github.com/Molajo/Pagination/tree/master/.dev/Example). To see the demo
+[.dev/Sample/ Folder](https://github.com/Molajo/Pagination/tree/master/.dev/Sample). To see the demo
 on your local website, create an Apache Host using
 [the Public Folder](https://github.com/Molajo/Pagination/tree/master/.dev/Sample/Public) as the Disk Location.
 Then, use the Server Name as the address in your browser.

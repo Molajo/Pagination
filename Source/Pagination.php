@@ -127,7 +127,7 @@ class Pagination implements PaginationInterface
      * @param   array   $other_query_parameters
      *
      * @since   1.0
-     * @return  object
+     * @return  null|object
      */
     public function getPaginationData(
         $display_items_per_page_count = 5,
@@ -167,6 +167,10 @@ class Pagination implements PaginationInterface
         }
 
         $this->total_items      = (int)$total_items;
+        if ($this->total_items === 0) {
+            return null;
+        }
+
         $this->visited_page_url = $visited_page_url;
 
         if ((int)$current_start_parameter > 0) {

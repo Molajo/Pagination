@@ -60,7 +60,6 @@ Data object ArrayIterator and easy pagination for PHP, framework independent.
     </footer>
 ```
 
-
 ### Working Example
 
 A working example of a Pagination View is in the
@@ -114,6 +113,7 @@ The code is well documented in order to help you get up and running quickly.
         <?php endif; ?>
     </ul>
 </nav>
+
 ```
 
 ## Install using Composer from Packagist

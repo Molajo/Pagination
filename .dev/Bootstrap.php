@@ -8,10 +8,7 @@
  */
 $base     = substr(__DIR__, 0, strlen(__DIR__) - 5);
 include $base . '/vendor/autoload.php';
-include_once __DIR__ . '/CreateClassMap.php';
-
-$classmap = array();
-$results  = createClassMap($base . '/Source', 'Molajo\\');
+$classmap['Molajo\\Pagination'] = $base . '/Source/Pagination.php';
 
 spl_autoload_register(
     function ($class) use ($classmap) {

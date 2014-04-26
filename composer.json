@@ -1,6 +1,6 @@
 {
     "name": "molajo/pagination",
-    "description": "Pagination Rendering for PHP Applications",
+    "description": "Pagination Support for PHP Applications",
     "version": "1.0.0",
     "type": "molajo-package",
     "keywords": ["render", "commonapi", "molajo", "pagination"],
@@ -27,8 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Molajo\\": "Source/",
-            "Molajo\\Factories\\": "Factories/"
+            "Molajo\\": "Source/"
         }
     },
 

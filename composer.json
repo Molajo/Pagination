@@ -21,7 +21,6 @@
         "source": "https://github.com/Molajo/Pagination"
     },
     "require": {
-        "php": ">=5.4",
         "commonapi/render": "dev-master",
         "commonapi/exception": "dev-master"
     },

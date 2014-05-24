@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1400943825">
-  <project timestamp="1400943825">
+<coverage generated="1400948424">
+  <project timestamp="1400948424">
     <file name="/Users/amystephen/Sites/Molajo/Pagination/.dev/Bootstrap.php">
       <line num="15" type="stmt" count="0"/>
       <line num="16" type="stmt" count="0"/>
@@ -11,22 +11,22 @@
     <package name="Molajo">
       <file name="/Users/amystephen/Sites/Molajo/Pagination/Source/Pagination.php">
         <class name="Pagination" namespace="Molajo">
-          <metrics methods="24" coveredmethods="23" conditionals="0" coveredconditionals="0" statements="149" coveredstatements="120" elements="173" coveredelements="143"/>
+          <metrics methods="26" coveredmethods="26" conditionals="0" coveredconditionals="0" statements="143" coveredstatements="127" elements="169" coveredelements="153"/>
         </class>
-        <line num="132" type="method" name="getPaginationData" crap="6" count="0"/>
-        <line num="142" type="stmt" count="0"/>
-        <line num="143" type="stmt" count="0"/>
-        <line num="144" type="stmt" count="0"/>
-        <line num="145" type="stmt" count="0"/>
-        <line num="147" type="stmt" count="0"/>
-        <line num="149" type="stmt" count="0"/>
-        <line num="150" type="stmt" count="0"/>
-        <line num="153" type="stmt" count="0"/>
-        <line num="154" type="stmt" count="0"/>
-        <line num="155" type="stmt" count="0"/>
-        <line num="156" type="stmt" count="0"/>
-        <line num="158" type="stmt" count="0"/>
-        <line num="160" type="stmt" count="0"/>
+        <line num="132" type="method" name="getPaginationData" crap="2" count="5"/>
+        <line num="142" type="stmt" count="5"/>
+        <line num="143" type="stmt" count="5"/>
+        <line num="144" type="stmt" count="5"/>
+        <line num="145" type="stmt" count="5"/>
+        <line num="147" type="stmt" count="5"/>
+        <line num="149" type="stmt" count="5"/>
+        <line num="150" type="stmt" count="1"/>
+        <line num="153" type="stmt" count="4"/>
+        <line num="154" type="stmt" count="4"/>
+        <line num="155" type="stmt" count="4"/>
+        <line num="156" type="stmt" count="4"/>
+        <line num="158" type="stmt" count="4"/>
+        <line num="160" type="stmt" count="4"/>
         <line num="174" type="method" name="setPaginationDisplayValues" crap="2.26" count="5"/>
         <line num="180" type="stmt" count="5"/>
         <line num="182" type="stmt" count="5"/>
@@ -99,95 +99,91 @@
         <line num="374" type="stmt" count="0"/>
         <line num="375" type="stmt" count="0"/>
         <line num="377" type="stmt" count="4"/>
-        <line num="386" type="method" name="createPaginationRow" crap="2" count="4"/>
+        <line num="386" type="method" name="createPaginationRow" crap="3.00" count="4"/>
         <line num="388" type="stmt" count="4"/>
         <line num="390" type="stmt" count="4"/>
         <line num="391" type="stmt" count="4"/>
         <line num="392" type="stmt" count="4"/>
         <line num="393" type="stmt" count="4"/>
-        <line num="394" type="stmt" count="4"/>
         <line num="395" type="stmt" count="4"/>
         <line num="396" type="stmt" count="4"/>
         <line num="397" type="stmt" count="4"/>
-        <line num="398" type="stmt" count="4"/>
         <line num="399" type="stmt" count="4"/>
-        <line num="400" type="stmt" count="4"/>
-        <line num="401" type="stmt" count="4"/>
         <line num="402" type="stmt" count="4"/>
-        <line num="404" type="stmt" count="4"/>
+        <line num="403" type="stmt" count="4"/>
+        <line num="404" type="stmt" count="0"/>
+        <line num="405" type="stmt" count="4"/>
+        <line num="406" type="stmt" count="4"/>
         <line num="407" type="stmt" count="4"/>
         <line num="408" type="stmt" count="4"/>
-        <line num="409" type="stmt" count="0"/>
         <line num="410" type="stmt" count="4"/>
-        <line num="411" type="stmt" count="4"/>
-        <line num="412" type="stmt" count="4"/>
-        <line num="414" type="stmt" count="4"/>
-        <line num="423" type="method" name="getFirstPage" crap="2.15" count="4"/>
-        <line num="425" type="stmt" count="4"/>
-        <line num="426" type="stmt" count="0"/>
+        <line num="422" type="method" name="getPageUrlDriver" crap="1" count="4"/>
+        <line num="424" type="stmt" count="4"/>
+        <line num="426" type="stmt" count="4"/>
+        <line num="427" type="stmt" count="4"/>
         <line num="429" type="stmt" count="4"/>
-        <line num="438" type="method" name="getPrevPage" crap="2" count="4"/>
-        <line num="440" type="stmt" count="4"/>
-        <line num="441" type="stmt" count="2"/>
-        <line num="444" type="stmt" count="2"/>
-        <line num="453" type="method" name="getCurrentPage" crap="1" count="4"/>
-        <line num="455" type="stmt" count="4"/>
-        <line num="464" type="method" name="getNextPage" crap="2" count="4"/>
-        <line num="466" type="stmt" count="4"/>
-        <line num="467" type="stmt" count="1"/>
-        <line num="470" type="stmt" count="3"/>
-        <line num="479" type="method" name="getLastPage" crap="1" count="4"/>
+        <line num="430" type="stmt" count="4"/>
+        <line num="432" type="stmt" count="4"/>
+        <line num="443" type="method" name="getPageUrl" crap="4" count="4"/>
+        <line num="445" type="stmt" count="4"/>
+        <line num="446" type="stmt" count="4"/>
+        <line num="447" type="stmt" count="4"/>
+        <line num="448" type="stmt" count="4"/>
+        <line num="449" type="stmt" count="4"/>
+        <line num="452" type="stmt" count="4"/>
+        <line num="454" type="stmt" count="4"/>
+        <line num="455" type="stmt" count="2"/>
+        <line num="456" type="stmt" count="2"/>
+        <line num="457" type="stmt" count="2"/>
+        <line num="460" type="stmt" count="4"/>
+        <line num="471" type="method" name="adjustPageNumberForContent" crap="4.68" count="4"/>
+        <line num="473" type="stmt" count="4"/>
+        <line num="474" type="stmt" count="0"/>
+        <line num="475" type="stmt" count="0"/>
+        <line num="477" type="stmt" count="4"/>
+        <line num="478" type="stmt" count="0"/>
+        <line num="479" type="stmt" count="0"/>
         <line num="481" type="stmt" count="4"/>
-        <line num="490" type="method" name="getStartLinksPage" crap="1" count="4"/>
+        <line num="490" type="method" name="getFirstPage" crap="2.15" count="4"/>
         <line num="492" type="stmt" count="4"/>
-        <line num="501" type="method" name="getStopLinksPage" crap="1" count="4"/>
-        <line num="503" type="stmt" count="4"/>
-        <line num="512" type="method" name="getTotalItems" crap="1" count="4"/>
-        <line num="514" type="stmt" count="4"/>
-        <line num="525" type="method" name="getPageUrl" crap="9.56" count="4"/>
-        <line num="527" type="stmt" count="4"/>
-        <line num="528" type="stmt" count="4"/>
-        <line num="529" type="stmt" count="4"/>
-        <line num="530" type="stmt" count="4"/>
-        <line num="531" type="stmt" count="4"/>
-        <line num="532" type="stmt" count="4"/>
+        <line num="493" type="stmt" count="0"/>
+        <line num="496" type="stmt" count="4"/>
+        <line num="505" type="method" name="getPreviousPage" crap="2" count="4"/>
+        <line num="507" type="stmt" count="4"/>
+        <line num="508" type="stmt" count="2"/>
+        <line num="511" type="stmt" count="2"/>
+        <line num="520" type="method" name="getCurrentPage" crap="1" count="4"/>
+        <line num="522" type="stmt" count="4"/>
+        <line num="531" type="method" name="getNextPage" crap="2" count="4"/>
         <line num="533" type="stmt" count="4"/>
-        <line num="534" type="stmt" count="4"/>
-        <line num="535" type="stmt" count="4"/>
-        <line num="536" type="stmt" count="4"/>
-        <line num="537" type="stmt" count="4"/>
-        <line num="538" type="stmt" count="4"/>
-        <line num="541" type="stmt" count="4"/>
-        <line num="542" type="stmt" count="0"/>
-        <line num="543" type="stmt" count="0"/>
-        <line num="545" type="stmt" count="4"/>
-        <line num="546" type="stmt" count="0"/>
-        <line num="547" type="stmt" count="0"/>
-        <line num="549" type="stmt" count="4"/>
-        <line num="550" type="stmt" count="2"/>
-        <line num="553" type="stmt" count="2"/>
-        <line num="564" type="method" name="setPageUrlParameters" crap="1" count="2"/>
-        <line num="566" type="stmt" count="2"/>
-        <line num="577" type="method" name="setPageUrlSef" crap="1" count="2"/>
-        <line num="579" type="stmt" count="2"/>
-        <line num="592" type="method" name="setPageUrl" crap="6" count="4"/>
-        <line num="594" type="stmt" count="4"/>
-        <line num="595" type="stmt" count="2"/>
-        <line num="596" type="stmt" count="2"/>
-        <line num="597" type="stmt" count="2"/>
-        <line num="600" type="stmt" count="4"/>
-        <line num="602" type="stmt" count="4"/>
-        <line num="603" type="stmt" count="4"/>
-        <line num="604" type="stmt" count="4"/>
-        <line num="606" type="stmt" count="4"/>
-        <line num="608" type="stmt" count="4"/>
-        <line num="609" type="stmt" count="4"/>
-        <line num="610" type="stmt" count="4"/>
-        <line num="611" type="stmt" count="4"/>
-        <line num="612" type="stmt" count="4"/>
-        <line num="614" type="stmt" count="4"/>
-        <line num="617" type="stmt" count="0"/>
-        <metrics loc="616" ncloc="346" classes="1" methods="24" coveredmethods="17" conditionals="0" coveredconditionals="0" statements="149" coveredstatements="120" elements="173" coveredelements="137"/>
+        <line num="534" type="stmt" count="1"/>
+        <line num="537" type="stmt" count="3"/>
+        <line num="546" type="method" name="getLastPage" crap="1" count="4"/>
+        <line num="548" type="stmt" count="4"/>
+        <line num="557" type="method" name="getStartLinksPage" crap="1" count="4"/>
+        <line num="559" type="stmt" count="4"/>
+        <line num="568" type="method" name="getStopLinksPage" crap="1" count="4"/>
+        <line num="570" type="stmt" count="4"/>
+        <line num="579" type="method" name="getTotalItems" crap="1" count="4"/>
+        <line num="581" type="stmt" count="4"/>
+        <line num="592" type="method" name="setPageUrlParameters" crap="1" count="2"/>
+        <line num="594" type="stmt" count="2"/>
+        <line num="605" type="method" name="setPageUrlSef" crap="1" count="2"/>
+        <line num="607" type="stmt" count="2"/>
+        <line num="621" type="method" name="setPageUrl" crap="4" count="4"/>
+        <line num="623" type="stmt" count="4"/>
+        <line num="625" type="stmt" count="4"/>
+        <line num="626" type="stmt" count="4"/>
+        <line num="627" type="stmt" count="4"/>
+        <line num="629" type="stmt" count="4"/>
+        <line num="631" type="stmt" count="4"/>
+        <line num="632" type="stmt" count="4"/>
+        <line num="633" type="stmt" count="4"/>
+        <line num="634" type="stmt" count="4"/>
+        <line num="635" type="stmt" count="4"/>
+        <line num="637" type="stmt" count="4"/>
+        <line num="640" type="stmt" count="0"/>
+        <metrics loc="639" ncloc="351" classes="1" methods="26" coveredmethods="20" conditionals="0" coveredconditionals="0" statements="143" coveredstatements="127" elements="169" coveredelements="147"/>
       </file>
     </package>
     <file name="/Users/amystephen/Sites/Molajo/Pagination/vendor/commonapi/render/PaginationInterface.php">
@@ -393,6 +389,6 @@
       <line num="53" type="stmt" count="0"/>
       <metrics loc="53" ncloc="51" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="27" coveredstatements="0" elements="29" coveredelements="0"/>
     </file>
-    <metrics files="5" loc="1116" ncloc="664" classes="3" methods="43" coveredmethods="17" conditionals="0" coveredconditionals="0" statements="318" coveredstatements="120" elements="361" coveredelements="137"/>
+    <metrics files="5" loc="1139" ncloc="669" classes="3" methods="45" coveredmethods="20" conditionals="0" coveredconditionals="0" statements="312" coveredstatements="127" elements="357" coveredelements="147"/>
   </project>
 </coverage>

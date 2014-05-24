@@ -34,6 +34,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::setPaginationDisplayValues
      * @covers  Molajo\Pagination::setStartParameter
      * @covers  Molajo\Pagination::setDisplayPageLinkCount
@@ -45,15 +46,17 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageBoundaries
      * @covers  Molajo\Pagination::adjustBoundariesForContent
      * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getPageUrlDriver
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::adjustPageNumberForContent
      * @covers  Molajo\Pagination::getFirstPage
-     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getPreviousPage
      * @covers  Molajo\Pagination::getCurrentPage
      * @covers  Molajo\Pagination::getNextPage
      * @covers  Molajo\Pagination::getLastPage
      * @covers  Molajo\Pagination::getStartLinksPage
      * @covers  Molajo\Pagination::getStopLinksPage
      * @covers  Molajo\Pagination::getTotalItems
-     * @covers  Molajo\Pagination::getPageUrl
      * @covers  Molajo\Pagination::setPageUrlParameters
      * @covers  Molajo\Pagination::setPageUrlSef
      * @covers  Molajo\Pagination::setPageUrl
@@ -82,6 +85,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
             $create_sef_url_indicator,
             $display_index_in_url_indicator
         );
+
         $page_links    = array();
         $page_links[1] = 'http://example.com/index.php/start/1/dog/woof/cat/meow';
         $page_links[2] = 'http://example.com/index.php/start/2/dog/woof/cat/meow';
@@ -95,10 +99,10 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/index.php/start/2/dog/woof/cat/meow', $row->next_page_link);
         $this->assertEquals(10, $row->last_page_number);
         $this->assertEquals('http://example.com/index.php/start/10/dog/woof/cat/meow', $row->last_page_link);
-        $this->assertEquals(1, $row->current_start_parameter_number);
+        $this->assertEquals(1, $row->current_page_number);
         $this->assertEquals(
             'http://example.com/index.php/start/1/dog/woof/cat/meow',
-            $row->current_start_parameter_link
+            $row->current_page_link
         );
         $this->assertEquals(1, $row->start_links_page_number);
         $this->assertEquals(3, $row->stop_links_page_number);
@@ -109,6 +113,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::setPaginationDisplayValues
      * @covers  Molajo\Pagination::setStartParameter
      * @covers  Molajo\Pagination::setDisplayPageLinkCount
@@ -120,15 +125,17 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageBoundaries
      * @covers  Molajo\Pagination::adjustBoundariesForContent
      * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getPageUrlDriver
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::adjustPageNumberForContent
      * @covers  Molajo\Pagination::getFirstPage
-     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getPreviousPage
      * @covers  Molajo\Pagination::getCurrentPage
      * @covers  Molajo\Pagination::getNextPage
      * @covers  Molajo\Pagination::getLastPage
      * @covers  Molajo\Pagination::getStartLinksPage
      * @covers  Molajo\Pagination::getStopLinksPage
      * @covers  Molajo\Pagination::getTotalItems
-     * @covers  Molajo\Pagination::getPageUrl
      * @covers  Molajo\Pagination::setPageUrlParameters
      * @covers  Molajo\Pagination::setPageUrlSef
      * @covers  Molajo\Pagination::setPageUrl
@@ -170,10 +177,10 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/index.php?start=6&dog=woof&cat=meow', $row->next_page_link);
         $this->assertEquals(10, $row->last_page_number);
         $this->assertEquals('http://example.com/index.php?start=10&dog=woof&cat=meow', $row->last_page_link);
-        $this->assertEquals(5, $row->current_start_parameter_number);
+        $this->assertEquals(5, $row->current_page_number);
         $this->assertEquals(
             'http://example.com/index.php?start=5&dog=woof&cat=meow',
-            $row->current_start_parameter_link
+            $row->current_page_link
         );
         $this->assertEquals(4, $row->start_links_page_number);
         $this->assertEquals(6, $row->stop_links_page_number);
@@ -184,6 +191,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::setPaginationDisplayValues
      * @covers  Molajo\Pagination::setStartParameter
      * @covers  Molajo\Pagination::setDisplayPageLinkCount
@@ -195,15 +203,17 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageBoundaries
      * @covers  Molajo\Pagination::adjustBoundariesForContent
      * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getPageUrlDriver
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::adjustPageNumberForContent
      * @covers  Molajo\Pagination::getFirstPage
-     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getPreviousPage
      * @covers  Molajo\Pagination::getCurrentPage
      * @covers  Molajo\Pagination::getNextPage
      * @covers  Molajo\Pagination::getLastPage
      * @covers  Molajo\Pagination::getStartLinksPage
      * @covers  Molajo\Pagination::getStopLinksPage
      * @covers  Molajo\Pagination::getTotalItems
-     * @covers  Molajo\Pagination::getPageUrl
      * @covers  Molajo\Pagination::setPageUrlParameters
      * @covers  Molajo\Pagination::setPageUrlSef
      * @covers  Molajo\Pagination::setPageUrl
@@ -246,10 +256,10 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/index.php?start=10&dog=woof&cat=meow', $row->next_page_link);
         $this->assertEquals(10, $row->last_page_number);
         $this->assertEquals('http://example.com/index.php?start=10&dog=woof&cat=meow', $row->last_page_link);
-        $this->assertEquals(10, $row->current_start_parameter_number);
+        $this->assertEquals(10, $row->current_page_number);
         $this->assertEquals(
             'http://example.com/index.php?start=10&dog=woof&cat=meow',
-            $row->current_start_parameter_link
+            $row->current_page_link
         );
         $this->assertEquals(8, $row->start_links_page_number);
         $this->assertEquals(10, $row->stop_links_page_number);
@@ -260,6 +270,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::setPaginationDisplayValues
      * @covers  Molajo\Pagination::setStartParameter
      * @covers  Molajo\Pagination::setDisplayPageLinkCount
@@ -271,15 +282,17 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageBoundaries
      * @covers  Molajo\Pagination::adjustBoundariesForContent
      * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getPageUrlDriver
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::adjustPageNumberForContent
      * @covers  Molajo\Pagination::getFirstPage
-     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getPreviousPage
      * @covers  Molajo\Pagination::getCurrentPage
      * @covers  Molajo\Pagination::getNextPage
      * @covers  Molajo\Pagination::getLastPage
      * @covers  Molajo\Pagination::getStartLinksPage
      * @covers  Molajo\Pagination::getStopLinksPage
      * @covers  Molajo\Pagination::getTotalItems
-     * @covers  Molajo\Pagination::getPageUrl
      * @covers  Molajo\Pagination::setPageUrlParameters
      * @covers  Molajo\Pagination::setPageUrlSef
      * @covers  Molajo\Pagination::setPageUrl
@@ -321,10 +334,10 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/index.php/start/2/dog/woof/cat/meow', $row->next_page_link);
         $this->assertEquals(10, $row->last_page_number);
         $this->assertEquals('http://example.com/index.php/start/10/dog/woof/cat/meow', $row->last_page_link);
-        $this->assertEquals(1, $row->current_start_parameter_number);
+        $this->assertEquals(1, $row->current_page_number);
         $this->assertEquals(
             'http://example.com/index.php/start/1/dog/woof/cat/meow',
-            $row->current_start_parameter_link
+            $row->current_page_link
         );
         $this->assertEquals(1, $row->start_links_page_number);
         $this->assertEquals(3, $row->stop_links_page_number);
@@ -335,6 +348,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::setPaginationDisplayValues
      * @covers  Molajo\Pagination::setStartParameter
      * @covers  Molajo\Pagination::setDisplayPageLinkCount
@@ -346,15 +360,17 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageBoundaries
      * @covers  Molajo\Pagination::adjustBoundariesForContent
      * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getPageUrlDriver
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::adjustPageNumberForContent
      * @covers  Molajo\Pagination::getFirstPage
-     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getPreviousPage
      * @covers  Molajo\Pagination::getCurrentPage
      * @covers  Molajo\Pagination::getNextPage
      * @covers  Molajo\Pagination::getLastPage
      * @covers  Molajo\Pagination::getStartLinksPage
      * @covers  Molajo\Pagination::getStopLinksPage
      * @covers  Molajo\Pagination::getTotalItems
-     * @covers  Molajo\Pagination::getPageUrl
      * @covers  Molajo\Pagination::setPageUrlParameters
      * @covers  Molajo\Pagination::setPageUrlSef
      * @covers  Molajo\Pagination::setPageUrl

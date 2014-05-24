@@ -241,7 +241,7 @@ class Pagination implements PaginationInterface
      * Set Pagination URL Values
      *
      * @param   string  $visited_page_url
-     * @param   string  $other_query_parameters
+     * @param   array   $other_query_parameters
      * @param   boolean $create_sef_url_indicator
      * @param   boolean $display_index_in_url_indicator
      *
@@ -250,7 +250,7 @@ class Pagination implements PaginationInterface
      */
     protected function setPaginationUrlValues(
         $visited_page_url,
-        $other_query_parameters,
+        array $other_query_parameters,
         $create_sef_url_indicator,
         $display_index_in_url_indicator
     ) {
@@ -280,12 +280,12 @@ class Pagination implements PaginationInterface
     /**
      * Set Other Query Parameters
      *
-     * @param   string $other_query_parameters
+     * @param   array $other_query_parameters
      *
      * @return  $this
      * @since   1.0
      */
-    protected function setOtherQueryParameters($other_query_parameters)
+    protected function setOtherQueryParameters(array $other_query_parameters)
     {
         $this->other_query_parameters = $other_query_parameters;
 
@@ -385,21 +385,16 @@ class Pagination implements PaginationInterface
      */
     protected function createPaginationRow()
     {
-        $row = new stdClass();
+        $array = array('First', 'Previous', 'Current', 'Next', 'Last');
 
-        $row->first_page_number              = $this->getFirstPage();
-        $row->first_page_link                = $this->getPageUrl('first');
-        $row->previous_page_number           = $this->getPrevPage();
-        $row->previous_page_link             = $this->getPageUrl('previous');
-        $row->current_start_parameter_number = $this->getCurrentPage();
-        $row->current_start_parameter_link   = $this->getPageUrl('current');
-        $row->next_page_number               = $this->getNextPage();
-        $row->next_page_link                 = $this->getPageUrl('next');
-        $row->last_page_number               = $this->getLastPage();
-        $row->last_page_link                 = $this->getPageUrl('last');
-        $row->total_items                    = $this->getTotalItems();
-        $row->start_links_page_number        = $this->getStartLinksPage();
-        $row->stop_links_page_number         = $this->getStopLinksPage();
+        $row = new stdClass();
+        foreach ($array as $value) {
+            $row = $this->getPageUrlDriver($value, $row);
+        }
+
+        $row->total_items             = $this->getTotalItems();
+        $row->start_links_page_number = $this->getStartLinksPage();
+        $row->stop_links_page_number  = $this->getStopLinksPage();
 
         $row->page_links_array = array();
 
@@ -408,10 +403,82 @@ class Pagination implements PaginationInterface
             $i < $row->stop_links_page_number + 1;
             $i++
         ) {
-            $row->page_links_array[$i] = $this->getPageUrl($i);
+            $page_link                 = $this->getPageUrl($i);
+            $row->page_links_array[$i] = $page_link[1];
         }
 
         return $row;
+    }
+
+    /**
+     * Get URL for specified key
+     *
+     * @param   mixed    $value
+     * @param   stdClass $row
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function getPageUrlDriver($value, $row)
+    {
+        $page_link = $this->getPageUrl($value);
+
+        $column       = strtolower($value) . '_page_number';
+        $row->$column = $page_link[0];
+
+        $column       = strtolower($value) . '_page_link';
+        $row->$column = $page_link[1];
+
+        return $row;
+    }
+
+    /**
+     * Get URL for specified key
+     *
+     * @param   mixed $page_number
+     *
+     * @return  array
+     * @since   1.0
+     */
+    protected function getPageUrl($page_number)
+    {
+        if (is_numeric($page_number) && $page_number > 0) {
+            $page_number = (int)$page_number;
+        } else {
+            $method      = 'get' . $page_number . 'Page';
+            $page_number = $this->$method();
+        }
+
+        $page_number = $this->adjustPageNumberForContent($page_number);
+
+        if ($this->create_sef_url_indicator === true) {
+            $page_url = $this->setPageUrlSef($page_number);
+        } else {
+            $page_url = $this->setPageUrlParameters($page_number);
+        }
+
+        return (array($page_number, $page_url));
+    }
+
+    /**
+     * Adjust Page Number for Content
+     *
+     * @param   integer $page_number
+     *
+     * @return  int
+     * @since   1.0
+     */
+    protected function adjustPageNumberForContent($page_number)
+    {
+        if ($page_number < 1) {
+            $page_number = 1;
+        }
+
+        if ($page_number > $this->getLastPage()) {
+            $page_number = $this->getLastPage();
+        }
+
+        return $page_number;
     }
 
     /**
@@ -435,7 +502,7 @@ class Pagination implements PaginationInterface
      * @return  int
      * @since   1.0
      */
-    protected function getPrevPage()
+    protected function getPreviousPage()
     {
         if ((1 > (int)$this->current_start_parameter - 1)) {
             return (int)$this->current_start_parameter;
@@ -515,45 +582,6 @@ class Pagination implements PaginationInterface
     }
 
     /**
-     * Get URL for specified key
-     *
-     * @param   mixed $page_number
-     *
-     * @return  string
-     * @since   1.0
-     */
-    protected function getPageUrl($page_number)
-    {
-        if (strtolower($page_number) == 'first') {
-            $page_number = $this->getFirstPage();
-        } elseif (strtolower($page_number) == 'previous') {
-            $page_number = $this->getPrevPage();
-        } elseif (strtolower($page_number) == 'current') {
-            $page_number = $this->getCurrentPage();
-        } elseif (strtolower($page_number) == 'next') {
-            $page_number = $this->getNextPage();
-        } elseif (strtolower($page_number) == 'last') {
-            $page_number = $this->getLastPage();
-        } else {
-            $page_number = (int)$page_number;
-        }
-
-        if ($page_number < 1) {
-            $page_number = 1;
-        }
-
-        if ($page_number > $this->getLastPage()) {
-            $page_number = $this->getLastPage();
-        }
-
-        if ($this->create_sef_url_indicator === true) {
-            return $this->setPageUrlSef($page_number);
-        }
-
-        return $this->setPageUrlParameters($page_number);
-    }
-
-    /**
      * Set URL and Parameter Pairs
      *
      * @param   int $page_number
@@ -563,7 +591,7 @@ class Pagination implements PaginationInterface
      */
     protected function setPageUrlParameters($page_number)
     {
-        return $this->setPageUrl($page_number, '&', '=');
+        return $this->setPageUrl($page_number, '?', '&', '=');
     }
 
     /**
@@ -583,20 +611,15 @@ class Pagination implements PaginationInterface
      * Create the URL Parameters
      *
      * @param   mixed  $page_number
+     * @param   string $first_connector
      * @param   string $connector
      * @param   string $separator
      *
      * @return  string
      * @since   1.0
      */
-    protected function setPageUrl($page_number, $connector = '/', $separator = '/')
+    protected function setPageUrl($page_number, $first_connector = '/', $connector = '/', $separator = '/')
     {
-        if ($connector === '&') {
-            $first_connector = '?';
-        } else {
-            $first_connector = $connector;
-        }
-
         $url = $this->visited_page_url;
 
         if ($this->display_index_in_url_indicator === true) {
@@ -605,7 +628,7 @@ class Pagination implements PaginationInterface
 
         $url .= $first_connector . 'start' . $separator . (int)$page_number;
 
-        if (is_array($this->other_query_parameters) && count($this->other_query_parameters) > 0) {
+        if (count($this->other_query_parameters) > 0) {
             foreach ($this->other_query_parameters as $key => $value) {
                 $url .= $connector . $key . $separator . $value;
             }

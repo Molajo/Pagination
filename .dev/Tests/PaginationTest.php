@@ -34,7 +34,29 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Pagination 1st page
+     * @covers  Molajo\Pagination::setPaginationDisplayValues
+     * @covers  Molajo\Pagination::setStartParameter
+     * @covers  Molajo\Pagination::setDisplayPageLinkCount
+     * @covers  Molajo\Pagination::setPaginationUrlValues
+     * @covers  Molajo\Pagination::setVisitedPageUrl
+     * @covers  Molajo\Pagination::setOtherQueryParameters
+     * @covers  Molajo\Pagination::setSefUrlIndicators
+     * @covers  Molajo\Pagination::calculateStartAndStopLinks
+     * @covers  Molajo\Pagination::setPageBoundaries
+     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getFirstPage
+     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getCurrentPage
+     * @covers  Molajo\Pagination::getNextPage
+     * @covers  Molajo\Pagination::getLastPage
+     * @covers  Molajo\Pagination::getStartLinksPage
+     * @covers  Molajo\Pagination::getStopLinksPage
+     * @covers  Molajo\Pagination::getTotalItems
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::setPageUrlParameters
+     * @covers  Molajo\Pagination::setPageUrlSef
+     * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
      * @since   1.0
@@ -87,7 +109,29 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Pagination Middle page, no SEF URL
+     * @covers  Molajo\Pagination::setPaginationDisplayValues
+     * @covers  Molajo\Pagination::setStartParameter
+     * @covers  Molajo\Pagination::setDisplayPageLinkCount
+     * @covers  Molajo\Pagination::setPaginationUrlValues
+     * @covers  Molajo\Pagination::setVisitedPageUrl
+     * @covers  Molajo\Pagination::setOtherQueryParameters
+     * @covers  Molajo\Pagination::setSefUrlIndicators
+     * @covers  Molajo\Pagination::calculateStartAndStopLinks
+     * @covers  Molajo\Pagination::setPageBoundaries
+     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getFirstPage
+     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getCurrentPage
+     * @covers  Molajo\Pagination::getNextPage
+     * @covers  Molajo\Pagination::getLastPage
+     * @covers  Molajo\Pagination::getStartLinksPage
+     * @covers  Molajo\Pagination::getStopLinksPage
+     * @covers  Molajo\Pagination::getTotalItems
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::setPageUrlParameters
+     * @covers  Molajo\Pagination::setPageUrlSef
+     * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
      * @since   1.0
@@ -140,7 +184,29 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Pagination Last page, no SEF URL
+     * @covers  Molajo\Pagination::setPaginationDisplayValues
+     * @covers  Molajo\Pagination::setStartParameter
+     * @covers  Molajo\Pagination::setDisplayPageLinkCount
+     * @covers  Molajo\Pagination::setPaginationUrlValues
+     * @covers  Molajo\Pagination::setVisitedPageUrl
+     * @covers  Molajo\Pagination::setOtherQueryParameters
+     * @covers  Molajo\Pagination::setSefUrlIndicators
+     * @covers  Molajo\Pagination::calculateStartAndStopLinks
+     * @covers  Molajo\Pagination::setPageBoundaries
+     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getFirstPage
+     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getCurrentPage
+     * @covers  Molajo\Pagination::getNextPage
+     * @covers  Molajo\Pagination::getLastPage
+     * @covers  Molajo\Pagination::getStartLinksPage
+     * @covers  Molajo\Pagination::getStopLinksPage
+     * @covers  Molajo\Pagination::getTotalItems
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::setPageUrlParameters
+     * @covers  Molajo\Pagination::setPageUrlSef
+     * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
      * @since   1.0
@@ -194,7 +260,29 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Pagination Middle page, no SEF URL
+     * @covers  Molajo\Pagination::setPaginationDisplayValues
+     * @covers  Molajo\Pagination::setStartParameter
+     * @covers  Molajo\Pagination::setDisplayPageLinkCount
+     * @covers  Molajo\Pagination::setPaginationUrlValues
+     * @covers  Molajo\Pagination::setVisitedPageUrl
+     * @covers  Molajo\Pagination::setOtherQueryParameters
+     * @covers  Molajo\Pagination::setSefUrlIndicators
+     * @covers  Molajo\Pagination::calculateStartAndStopLinks
+     * @covers  Molajo\Pagination::setPageBoundaries
+     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getFirstPage
+     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getCurrentPage
+     * @covers  Molajo\Pagination::getNextPage
+     * @covers  Molajo\Pagination::getLastPage
+     * @covers  Molajo\Pagination::getStartLinksPage
+     * @covers  Molajo\Pagination::getStopLinksPage
+     * @covers  Molajo\Pagination::getTotalItems
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::setPageUrlParameters
+     * @covers  Molajo\Pagination::setPageUrlSef
+     * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
      * @since   1.0
@@ -247,7 +335,29 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test No data
+     * @covers  Molajo\Pagination::setPaginationDisplayValues
+     * @covers  Molajo\Pagination::setStartParameter
+     * @covers  Molajo\Pagination::setDisplayPageLinkCount
+     * @covers  Molajo\Pagination::setPaginationUrlValues
+     * @covers  Molajo\Pagination::setVisitedPageUrl
+     * @covers  Molajo\Pagination::setOtherQueryParameters
+     * @covers  Molajo\Pagination::setSefUrlIndicators
+     * @covers  Molajo\Pagination::calculateStartAndStopLinks
+     * @covers  Molajo\Pagination::setPageBoundaries
+     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::createPaginationRow
+     * @covers  Molajo\Pagination::getFirstPage
+     * @covers  Molajo\Pagination::getPrevPage
+     * @covers  Molajo\Pagination::getCurrentPage
+     * @covers  Molajo\Pagination::getNextPage
+     * @covers  Molajo\Pagination::getLastPage
+     * @covers  Molajo\Pagination::getStartLinksPage
+     * @covers  Molajo\Pagination::getStopLinksPage
+     * @covers  Molajo\Pagination::getTotalItems
+     * @covers  Molajo\Pagination::getPageUrl
+     * @covers  Molajo\Pagination::setPageUrlParameters
+     * @covers  Molajo\Pagination::setPageUrlSef
+     * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
      * @since   1.0
@@ -263,7 +373,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $parameter_start                = 3;
         $other_query_parameters         = array('dog' => 'woof', 'cat' => 'meow');
 
-        $row           = $this->pagination->getPaginationData(
+        $row = $this->pagination->getPaginationData(
             $total_items,
             $page_url,
             $parameter_start,

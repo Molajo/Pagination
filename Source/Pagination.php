@@ -161,6 +161,223 @@ class Pagination implements PaginationInterface
     }
 
     /**
+     * Set Pagination Display Values
+     *
+     * @param   integer $total_items
+     * @param   integer $current_start_parameter
+     * @param   integer $display_items_per_page_count
+     * @param   integer $display_page_link_count
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setPaginationDisplayValues(
+        $total_items,
+        $current_start_parameter,
+        $display_items_per_page_count,
+        $display_page_link_count
+    ) {
+        $this->total_items = (int)$total_items;
+
+        $this->display_items_per_page_count = $display_items_per_page_count;
+
+        if ((int)$this->display_items_per_page_count === 0) {
+            $this->display_items_per_page_count = 9999999;
+            $current_start_parameter            = 1;
+            $display_page_link_count            = 0;
+        }
+
+        $this->setStartParameter($current_start_parameter);
+
+        $this->setDisplayPageLinkCount($display_page_link_count);
+
+        return $this;
+    }
+
+    /**
+     * Set Start Parameter
+     *
+     * @param   integer $current_start_parameter
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setStartParameter($current_start_parameter)
+    {
+        if ((int)$current_start_parameter > 0) {
+        } else {
+            $current_start_parameter = 1;
+        }
+
+        if (($current_start_parameter * $this->display_items_per_page_count) > $this->total_items) {
+            $current_start_parameter = 1;
+        }
+
+        $this->current_start_parameter = $current_start_parameter;
+
+        return $this;
+    }
+
+    /**
+     * Set Display Page Link Count
+     *
+     * @param   integer $display_page_link_count
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setDisplayPageLinkCount($display_page_link_count)
+    {
+        if ((int)$display_page_link_count < 1) {
+            $display_page_link_count = 5;
+        }
+
+        $this->display_page_link_count = (int)$display_page_link_count;
+
+        return $this;
+    }
+
+    /**
+     * Set Pagination URL Values
+     *
+     * @param   string  $visited_page_url
+     * @param   string  $other_query_parameters
+     * @param   boolean $create_sef_url_indicator
+     * @param   boolean $display_index_in_url_indicator
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setPaginationUrlValues(
+        $visited_page_url,
+        $other_query_parameters,
+        $create_sef_url_indicator,
+        $display_index_in_url_indicator
+    ) {
+        $this->setVisitedPageUrl($visited_page_url);
+        $this->setOtherQueryParameters($other_query_parameters);
+        $this->setSefUrlIndicators($create_sef_url_indicator, $display_index_in_url_indicator);
+        $this->calculateStartAndStopLinks();
+
+        return $this;
+    }
+
+    /**
+     * Set Visited Page Url
+     *
+     * @param   string $visited_page_url
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setVisitedPageUrl($visited_page_url)
+    {
+        $this->visited_page_url = $visited_page_url;
+
+        return $this;
+    }
+
+    /**
+     * Set Other Query Parameters
+     *
+     * @param   string $other_query_parameters
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setOtherQueryParameters($other_query_parameters)
+    {
+        $this->other_query_parameters = $other_query_parameters;
+
+        return $this;
+    }
+
+    /**
+     * Set SEF Url Indicators
+     *
+     * @param   boolean $create_sef_url_indicator
+     * @param   boolean $display_index_in_url_indicator
+     *
+     * @return  $this
+     * @since   1.0
+     */
+    protected function setSefUrlIndicators($create_sef_url_indicator, $display_index_in_url_indicator)
+    {
+        $this->display_index_in_url_indicator = $display_index_in_url_indicator;
+
+        if ($create_sef_url_indicator === true) {
+            $this->create_sef_url_indicator = true;
+        } else {
+            $this->create_sef_url_indicator       = false;
+            $this->display_index_in_url_indicator = true;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Calculate start and stop links
+     *
+     * @since   1.0
+     * @return  $this
+     */
+    protected function calculateStartAndStopLinks()
+    {
+        $this->setPageBoundaries();
+
+        if ($this->current_start_parameter - 1 > $this->start_links_page_number) {
+            $this->start_links_page_number = $this->current_start_parameter - 1;
+        }
+
+        if ($this->start_links_page_number + $this->display_page_link_count - 1 > $this->last_page) {
+            $this->stop_links_page_number  = $this->last_page;
+            $this->start_links_page_number = $this->last_page - $this->display_page_link_count + 1;
+        } else {
+            $this->stop_links_page_number = $this->start_links_page_number + $this->display_page_link_count - 1;
+        }
+
+        $this->adjustBoundariesForContent();
+
+        $this->display_page_link_count = $this->stop_links_page_number - $this->start_links_page_number + 1;
+
+        return $this;
+    }
+
+    /**
+     * Set Page Boundaries
+     *
+     * @since   1.0
+     * @return  $this
+     */
+    protected function setPageBoundaries()
+    {
+        $this->last_page               = ceil($this->total_items / $this->display_items_per_page_count);
+        $this->start_links_page_number = 1;
+        $this->stop_links_page_number  = $this->last_page;
+
+        return $this;
+    }
+
+    /**
+     * Adjust Page Boundaries for Content
+     *
+     * @since   1.0
+     * @return  $this
+     */
+    protected function adjustBoundariesForContent()
+    {
+        if ($this->start_links_page_number < 1) {
+            $this->start_links_page_number = 1;
+        }
+
+        if ($this->stop_links_page_number > $this->last_page) {
+            $this->stop_links_page_number = $this->last_page;
+        }
+
+        return $this;
+    }
+
+    /**
      * Create Pagination Row Object for rendering
      *
      * @since   1.0
@@ -185,6 +402,7 @@ class Pagination implements PaginationInterface
         $row->stop_links_page_number         = $this->getStopLinksPage();
 
         $row->page_links_array = array();
+
         for (
             $i = $row->start_links_page_number;
             $i < $row->stop_links_page_number + 1;
@@ -336,7 +554,7 @@ class Pagination implements PaginationInterface
     }
 
     /**
-     * Set URL and Parameters for specified key
+     * Set URL and Parameter Pairs
      *
      * @param   int $page_number
      *
@@ -345,25 +563,11 @@ class Pagination implements PaginationInterface
      */
     protected function setPageUrlParameters($page_number)
     {
-        $url = $this->visited_page_url;
-
-        if ($this->display_index_in_url_indicator === true) {
-            $url .= '/index.php';
-        }
-
-        $url .= '?start=' . (int)$page_number;
-
-        if (is_array($this->other_query_parameters) && count($this->other_query_parameters) > 0) {
-            foreach ($this->other_query_parameters as $key => $value) {
-                $url .= '&' . $key . '=' . $value;
-            }
-        }
-
-        return $url;
+        return $this->setPageUrl($page_number, '&', '=');
     }
 
     /**
-     * Set the SEF URL for the specified key
+     * Set the SEF URL for Parameters
      *
      * @param   mixed $page_number
      *
@@ -372,211 +576,41 @@ class Pagination implements PaginationInterface
      */
     protected function setPageUrlSef($page_number)
     {
+        return $this->setPageUrl($page_number);
+    }
+
+    /**
+     * Create the URL Parameters
+     *
+     * @param   mixed  $page_number
+     * @param   string $connector
+     * @param   string $separator
+     *
+     * @return  string
+     * @since   1.0
+     */
+    protected function setPageUrl($page_number, $connector = '/', $separator = '/')
+    {
+        if ($connector === '&') {
+            $first_connector = '?';
+        } else {
+            $first_connector = $connector;
+        }
+
         $url = $this->visited_page_url;
 
         if ($this->display_index_in_url_indicator === true) {
             $url .= '/index.php';
         }
 
-        $url .= '/start/' . (int)$page_number;
+        $url .= $first_connector . 'start' . $separator . (int)$page_number;
 
         if (is_array($this->other_query_parameters) && count($this->other_query_parameters) > 0) {
             foreach ($this->other_query_parameters as $key => $value) {
-                $url .= '/' . $key . '/' . $value;
+                $url .= $connector . $key . $separator . $value;
             }
         }
 
         return $url;
-    }
-
-    /**
-     * Set Pagination Display Values
-     *
-     * @param   integer $total_items
-     * @param   integer $current_start_parameter
-     * @param   integer $display_items_per_page_count
-     * @param   integer $display_page_link_count
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setPaginationDisplayValues(
-        $total_items,
-        $current_start_parameter,
-        $display_items_per_page_count,
-        $display_page_link_count
-    ) {
-        $this->total_items = (int)$total_items;
-
-        $this->display_items_per_page_count = $display_items_per_page_count;
-
-        if ((int)$this->display_items_per_page_count === 0) {
-            $this->display_items_per_page_count = 9999999;
-            $current_start_parameter            = 1;
-            $display_page_link_count            = 0;
-        }
-
-        $this->setStartParameter($current_start_parameter);
-
-        $this->setDisplayPageLinkCount($display_page_link_count);
-
-        return $this;
-    }
-
-    /**
-     * Set Start Parameter
-     *
-     * @param   integer $current_start_parameter
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setStartParameter($current_start_parameter)
-    {
-        if ((int)$current_start_parameter > 0) {
-        } else {
-            $current_start_parameter = 1;
-        }
-
-        if (($current_start_parameter * $this->display_items_per_page_count) > $this->total_items) {
-            $current_start_parameter = 1;
-        }
-
-        $this->current_start_parameter = $current_start_parameter;
-
-        return $this;
-    }
-
-    /**
-     * Set Display Page Link Count
-     *
-     * @param   integer $display_page_link_count
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setDisplayPageLinkCount($display_page_link_count)
-    {
-        if ((int)$display_page_link_count < 1) {
-            $display_page_link_count = 5;
-        }
-
-        $this->display_page_link_count = (int)$display_page_link_count;
-
-        return $this;
-    }
-
-    /**
-     * Set Pagination URL Values
-     *
-     * @param   string   $visited_page_url
-     * @param   string   $other_query_parameters
-     * @param   boolean  $create_sef_url_indicator
-     * @param   boolean  $display_index_in_url_indicator
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setPaginationUrlValues(
-        $visited_page_url,
-        $other_query_parameters,
-        $create_sef_url_indicator,
-        $display_index_in_url_indicator
-    ) {
-        $this->setVisitedPageUrl($visited_page_url);
-        $this->setOtherQueryParameters($other_query_parameters);
-        $this->setSefUrlIndicators($create_sef_url_indicator, $display_index_in_url_indicator);
-        $this->calculateStartAndStopLinks();
-
-        return $this;
-    }
-
-    /**
-     * Set Visited Page Url
-     *
-     * @param   string   $visited_page_url
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setVisitedPageUrl($visited_page_url)
-    {
-        $this->visited_page_url = $visited_page_url;
-
-        return $this;
-    }
-
-    /**
-     * Set Other Query Parameters
-     *
-     * @param   string   $other_query_parameters
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setOtherQueryParameters($other_query_parameters)
-    {
-        $this->other_query_parameters = $other_query_parameters;
-
-        return $this;
-    }
-
-    /**
-     * Set SEF Url Indicators
-     *
-     * @param   boolean  $create_sef_url_indicator
-     * @param   boolean  $display_index_in_url_indicator
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setSefUrlIndicators($create_sef_url_indicator, $display_index_in_url_indicator)
-    {
-        $this->display_index_in_url_indicator = $display_index_in_url_indicator;
-
-        if ($create_sef_url_indicator === true) {
-            $this->create_sef_url_indicator = true;
-        } else {
-            $this->create_sef_url_indicator       = false;
-            $this->display_index_in_url_indicator = true;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Calculate start and stop links
-     *
-     * @since   1.0
-     * @return  object
-     */
-    protected function calculateStartAndStopLinks()
-    {
-        $this->last_page               = ceil($this->total_items / $this->display_items_per_page_count);
-        $this->start_links_page_number = 1;
-        $this->stop_links_page_number  = $this->last_page;
-
-        if ($this->current_start_parameter - 1 > $this->start_links_page_number) {
-            $this->start_links_page_number = $this->current_start_parameter - 1;
-        }
-
-        if ($this->start_links_page_number + $this->display_page_link_count - 1 > $this->last_page) {
-            $this->stop_links_page_number  = $this->last_page;
-            $this->start_links_page_number = $this->last_page - $this->display_page_link_count + 1;
-        } else {
-            $this->stop_links_page_number = $this->start_links_page_number + $this->display_page_link_count - 1;
-        }
-
-        if ($this->start_links_page_number < 1) {
-            $this->start_links_page_number = 1;
-        }
-
-        if ($this->stop_links_page_number > $this->last_page) {
-            $this->stop_links_page_number = $this->last_page;
-        }
-
-        $this->display_page_link_count = $this->stop_links_page_number - $this->start_links_page_number + 1;
-
-        return $this;
     }
 }

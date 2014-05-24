@@ -51,14 +51,14 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $other_query_parameters         = array('dog' => 'woof', 'cat' => 'meow');
 
         $row           = $this->pagination->getPaginationData(
-            $display_items_per_page_count,
-            $display_page_link_count,
-            $create_sef_url_indicator,
-            $display_index_in_url_indicator,
             $total_items,
             $page_url,
             $parameter_start,
-            $other_query_parameters
+            $other_query_parameters,
+            $display_items_per_page_count,
+            $display_page_link_count,
+            $create_sef_url_indicator,
+            $display_index_in_url_indicator
         );
         $page_links    = array();
         $page_links[1] = 'http://example.com/index.php/start/1/dog/woof/cat/meow';
@@ -104,14 +104,14 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $other_query_parameters         = array('dog' => 'woof', 'cat' => 'meow');
 
         $row           = $this->pagination->getPaginationData(
-            $display_items_per_page_count,
-            $display_page_link_count,
-            $create_sef_url_indicator,
-            $display_index_in_url_indicator,
             $total_items,
             $page_url,
             $parameter_start,
-            $other_query_parameters
+            $other_query_parameters,
+            $display_items_per_page_count,
+            $display_page_link_count,
+            $create_sef_url_indicator,
+            $display_index_in_url_indicator
         );
         $page_links    = array();
         $page_links[4] = 'http://example.com/index.php?start=4&dog=woof&cat=meow';
@@ -157,14 +157,14 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $other_query_parameters         = array('dog' => 'woof', 'cat' => 'meow');
 
         $row = $this->pagination->getPaginationData(
-            $display_items_per_page_count,
-            $display_page_link_count,
-            $create_sef_url_indicator,
-            $display_index_in_url_indicator,
             $total_items,
             $page_url,
             $parameter_start,
-            $other_query_parameters
+            $other_query_parameters,
+            $display_items_per_page_count,
+            $display_page_link_count,
+            $create_sef_url_indicator,
+            $display_index_in_url_indicator
         );
 
         $page_links     = array();
@@ -211,14 +211,14 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $other_query_parameters         = array('dog' => 'woof', 'cat' => 'meow');
 
         $row           = $this->pagination->getPaginationData(
-            $display_items_per_page_count,
-            $display_page_link_count,
-            $create_sef_url_indicator,
-            $display_index_in_url_indicator,
             $total_items,
             $page_url,
             $parameter_start,
-            $other_query_parameters
+            $other_query_parameters,
+            $display_items_per_page_count,
+            $display_page_link_count,
+            $create_sef_url_indicator,
+            $display_index_in_url_indicator
         );
         $page_links    = array();
         $page_links[1] = 'http://example.com/index.php/start/1/dog/woof/cat/meow';
@@ -264,26 +264,18 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $other_query_parameters         = array('dog' => 'woof', 'cat' => 'meow');
 
         $row           = $this->pagination->getPaginationData(
-            $display_items_per_page_count,
-            $display_page_link_count,
-            $create_sef_url_indicator,
-            $display_index_in_url_indicator,
             $total_items,
             $page_url,
             $parameter_start,
-            $other_query_parameters
+            $other_query_parameters,
+            $display_items_per_page_count,
+            $display_page_link_count,
+            $create_sef_url_indicator,
+            $display_index_in_url_indicator
         );
 
         $this->assertEquals(null, $row);
 
         return $this;
-    }
-
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
-    protected function tearDown()
-    {
     }
 }

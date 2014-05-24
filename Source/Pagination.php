@@ -168,10 +168,6 @@ class Pagination implements PaginationInterface
         $create_sef_url_indicator = false,
         $display_index_in_url_indicator = true
     ) {
-        if ((int)$total_items === 0) {
-            return null;
-        }
-
         $this->total_items                    = $total_items;
         $this->visited_page_url               = $visited_page_url;
         $this->start_page_number              = $start_page_number;
@@ -180,6 +176,21 @@ class Pagination implements PaginationInterface
         $this->display_page_link_count        = $display_page_link_count;
         $this->create_sef_url_indicator       = $create_sef_url_indicator;
         $this->display_index_in_url_indicator = $display_index_in_url_indicator;
+
+        return $this->driver();
+    }
+
+    /**
+     * Calculate page values, render pagination row
+     *
+     * @return  stdClass
+     * @since   1.0
+     */
+    protected function driver()
+    {
+        if ((int)$this->total_items === 0) {
+            return null;
+        }
 
         $this->calculateValues();
 

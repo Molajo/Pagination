@@ -36,6 +36,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::calculateValues
+     * @covers  Molajo\Pagination::driver
      *
      * @covers  Molajo\Calculations::setValues
      * @covers  Molajo\Calculations::setClassProperties
@@ -118,6 +119,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::calculateValues
+     * @covers  Molajo\Pagination::driver
      *
      * @covers  Molajo\Calculations::setValues
      * @covers  Molajo\Calculations::setClassProperties
@@ -199,6 +201,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::calculateValues
+     * @covers  Molajo\Pagination::driver
      *
      * @covers  Molajo\Calculations::setValues
      * @covers  Molajo\Calculations::setClassProperties
@@ -281,6 +284,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::calculateValues
+     * @covers  Molajo\Pagination::driver
      *
      * @covers  Molajo\Calculations::setValues
      * @covers  Molajo\Calculations::setClassProperties
@@ -362,6 +366,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers  Molajo\Pagination::getPaginationData
      * @covers  Molajo\Pagination::calculateValues
+     * @covers  Molajo\Pagination::driver
      *
      * @covers  Molajo\Calculations::setValues
      * @covers  Molajo\Calculations::setClassProperties

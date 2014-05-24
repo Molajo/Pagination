@@ -8,8 +8,6 @@
  */
 namespace Molajo;
 
-use stdClass;
-
 /**
  * Calculations
  *
@@ -135,7 +133,7 @@ class Calculations
         $this->setSefUrlIndicators();
         $this->calculateStartAndStopLinks();
 
-        return $this->setReturnOptions($options);
+        return $this->setReturnOptions();
     }
 
     /**
@@ -143,7 +141,7 @@ class Calculations
      *
      * @param   array  $options
      *
-     * @return  array
+     * @return  Calculations
      * @since   1.0
      */
     protected function setClassProperties($options)

@@ -156,7 +156,7 @@ class Pagination implements PaginationInterface
      * @param   boolean $display_index_in_url_indicator
      *
      * @since   1.0
-     * @return  null|object
+     * @return  null|stdClass
      */
     public function getPaginationData(
         $total_items,
@@ -189,9 +189,8 @@ class Pagination implements PaginationInterface
     /**
      * Pass properties into Calculate Class and return calculations
      *
-     * @param   array $options
      *
-     * @return  array
+     * @return  Pagination
      * @since   1.0
      */
     protected function calculateValues()
@@ -215,7 +214,7 @@ class Pagination implements PaginationInterface
      * Create Pagination Row Object for rendering
      *
      * @since   1.0
-     * @return  object
+     * @return  stdClass
      */
     protected function createPaginationRow()
     {
@@ -244,7 +243,7 @@ class Pagination implements PaginationInterface
      * @param   mixed    $value
      * @param   stdClass $row
      *
-     * @return  array
+     * @return  stdClass
      * @since   1.0
      */
     protected function getPageUrlDriver($value, $row)
@@ -425,7 +424,7 @@ class Pagination implements PaginationInterface
     /**
      * Set the SEF URL for Parameters
      *
-     * @param   mixed $page_number
+     * @param   integer $page_number
      *
      * @return  string
      * @since   1.0

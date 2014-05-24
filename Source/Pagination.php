@@ -78,7 +78,7 @@ class Pagination implements PaginationInterface
      * @var    int
      * @since  1.0
      */
-    protected $current_start_parameter = 0;
+    protected $start_page_number = 0;
 
     /**
      * URL Filters
@@ -113,13 +113,21 @@ class Pagination implements PaginationInterface
     protected $stop_links_page_number = 0;
 
     /**
+     * Page Array
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $page_array = array('First', 'Previous', 'Current', 'Next', 'Last');
+
+    /**
      * Get Pagination Row Object for input data to rendering
      *
      * << < 1 2 3 > >>
      *
      * @param   int     $total_items
      * @param   string  $visited_page_url
-     * @param   int     $current_start_parameter
+     * @param   int     $start_page_number
      * @param   array   $other_query_parameters
      * @param   int     $display_items_per_page_count
      * @param   int     $display_page_link_count
@@ -132,30 +140,23 @@ class Pagination implements PaginationInterface
     public function getPaginationData(
         $total_items,
         $visited_page_url,
-        $current_start_parameter,
+        $start_page_number,
         $other_query_parameters,
         $display_items_per_page_count = 5,
         $display_page_link_count = 5,
         $create_sef_url_indicator = false,
         $display_index_in_url_indicator = true
     ) {
-        $this->setPaginationDisplayValues(
-            $total_items,
-            $current_start_parameter,
-            $display_items_per_page_count,
-            $display_page_link_count
-        );
-
-        if ($this->total_items === 0) {
+        if ((int)$total_items === 0) {
             return null;
+        } else {
+            $this->total_items = (int)$total_items;
         }
 
-        $this->setPaginationUrlValues(
-            $visited_page_url,
-            $other_query_parameters,
-            $create_sef_url_indicator,
-            $display_index_in_url_indicator
-        );
+        $this->setPaginationDisplayValues($start_page_number, $display_items_per_page_count, $display_page_link_count);
+        $this->setPaginationUrlValues($visited_page_url, $other_query_parameters);
+        $this->setSefUrlIndicators($create_sef_url_indicator, $display_index_in_url_indicator);
+        $this->calculateStartAndStopLinks();
 
         return $this->createPaginationRow();
     }
@@ -163,8 +164,7 @@ class Pagination implements PaginationInterface
     /**
      * Set Pagination Display Values
      *
-     * @param   integer $total_items
-     * @param   integer $current_start_parameter
+     * @param   integer $start_page_number
      * @param   integer $display_items_per_page_count
      * @param   integer $display_page_link_count
      *
@@ -172,22 +172,19 @@ class Pagination implements PaginationInterface
      * @since   1.0
      */
     protected function setPaginationDisplayValues(
-        $total_items,
-        $current_start_parameter,
+        $start_page_number,
         $display_items_per_page_count,
         $display_page_link_count
     ) {
-        $this->total_items = (int)$total_items;
-
         $this->display_items_per_page_count = $display_items_per_page_count;
 
         if ((int)$this->display_items_per_page_count === 0) {
             $this->display_items_per_page_count = 9999999;
-            $current_start_parameter            = 1;
+            $start_page_number                  = 1;
             $display_page_link_count            = 0;
         }
 
-        $this->setStartParameter($current_start_parameter);
+        $this->setStartParameter($start_page_number);
 
         $this->setDisplayPageLinkCount($display_page_link_count);
 
@@ -197,23 +194,23 @@ class Pagination implements PaginationInterface
     /**
      * Set Start Parameter
      *
-     * @param   integer $current_start_parameter
+     * @param   integer $start_page_number
      *
      * @return  $this
      * @since   1.0
      */
-    protected function setStartParameter($current_start_parameter)
+    protected function setStartParameter($start_page_number)
     {
-        if ((int)$current_start_parameter > 0) {
+        if ((int)$start_page_number > 0) {
         } else {
-            $current_start_parameter = 1;
+            $start_page_number = 1;
         }
 
-        if (($current_start_parameter * $this->display_items_per_page_count) > $this->total_items) {
-            $current_start_parameter = 1;
+        if (($start_page_number * $this->display_items_per_page_count) > $this->total_items) {
+            $start_page_number = 1;
         }
 
-        $this->current_start_parameter = $current_start_parameter;
+        $this->start_page_number = $start_page_number;
 
         return $this;
     }
@@ -240,24 +237,18 @@ class Pagination implements PaginationInterface
     /**
      * Set Pagination URL Values
      *
-     * @param   string  $visited_page_url
-     * @param   array   $other_query_parameters
-     * @param   boolean $create_sef_url_indicator
-     * @param   boolean $display_index_in_url_indicator
+     * @param   string $visited_page_url
+     * @param   array  $other_query_parameters
      *
      * @return  $this
      * @since   1.0
      */
     protected function setPaginationUrlValues(
         $visited_page_url,
-        array $other_query_parameters,
-        $create_sef_url_indicator,
-        $display_index_in_url_indicator
+        array $other_query_parameters
     ) {
         $this->setVisitedPageUrl($visited_page_url);
         $this->setOtherQueryParameters($other_query_parameters);
-        $this->setSefUrlIndicators($create_sef_url_indicator, $display_index_in_url_indicator);
-        $this->calculateStartAndStopLinks();
 
         return $this;
     }
@@ -325,8 +316,8 @@ class Pagination implements PaginationInterface
     {
         $this->setPageBoundaries();
 
-        if ($this->current_start_parameter - 1 > $this->start_links_page_number) {
-            $this->start_links_page_number = $this->current_start_parameter - 1;
+        if ($this->start_page_number - 1 > $this->start_links_page_number) {
+            $this->start_links_page_number = $this->start_page_number - 1;
         }
 
         if ($this->start_links_page_number + $this->display_page_link_count - 1 > $this->last_page) {
@@ -385,10 +376,8 @@ class Pagination implements PaginationInterface
      */
     protected function createPaginationRow()
     {
-        $array = array('First', 'Previous', 'Current', 'Next', 'Last');
-
         $row = new stdClass();
-        foreach ($array as $value) {
+        foreach ($this->page_array as $value) {
             $row = $this->getPageUrlDriver($value, $row);
         }
 
@@ -398,11 +387,7 @@ class Pagination implements PaginationInterface
 
         $row->page_links_array = array();
 
-        for (
-            $i = $row->start_links_page_number;
-            $i < $row->stop_links_page_number + 1;
-            $i++
-        ) {
+        for ($i = $row->start_links_page_number; $i < $row->stop_links_page_number + 1; $i++) {
             $page_link                 = $this->getPageUrl($i);
             $row->page_links_array[$i] = $page_link[1];
         }
@@ -504,11 +489,11 @@ class Pagination implements PaginationInterface
      */
     protected function getPreviousPage()
     {
-        if ((1 > (int)$this->current_start_parameter - 1)) {
-            return (int)$this->current_start_parameter;
+        if ((1 > (int)$this->start_page_number - 1)) {
+            return (int)$this->start_page_number;
         }
 
-        return (int)$this->current_start_parameter - 1;
+        return (int)$this->start_page_number - 1;
     }
 
     /**
@@ -519,7 +504,7 @@ class Pagination implements PaginationInterface
      */
     protected function getCurrentPage()
     {
-        return (int)$this->current_start_parameter;
+        return (int)$this->start_page_number;
     }
 
     /**
@@ -530,11 +515,11 @@ class Pagination implements PaginationInterface
      */
     protected function getNextPage()
     {
-        if ((int)$this->current_start_parameter + 1 > (int)$this->last_page) {
+        if ((int)$this->start_page_number + 1 > (int)$this->last_page) {
             return (int)$this->last_page;
         }
 
-        return (int)$this->current_start_parameter + 1;
+        return (int)$this->start_page_number + 1;
     }
 
     /**

@@ -121,6 +121,27 @@ class Pagination implements PaginationInterface
     protected $page_array = array('First', 'Previous', 'Current', 'Next', 'Last');
 
     /**
+     * Page Array
+     *
+     * @var    array
+     * @since  1.0
+     */
+    protected $properties_array
+        = array(
+            'display_items_per_page_count',
+            'display_page_link_count',
+            'create_sef_url_indicator',
+            'display_index_in_url_indicator',
+            'visited_page_url',
+            'total_items',
+            'last_page',
+            'start_page_number',
+            'other_query_parameters',
+            'start_links_page_number',
+            'stop_links_page_number'
+        );
+
+    /**
      * Get Pagination Row Object for input data to rendering
      *
      * << < 1 2 3 > >>
@@ -149,220 +170,42 @@ class Pagination implements PaginationInterface
     ) {
         if ((int)$total_items === 0) {
             return null;
-        } else {
-            $this->total_items = (int)$total_items;
         }
 
-        $this->setPaginationDisplayValues($start_page_number, $display_items_per_page_count, $display_page_link_count);
-        $this->setPaginationUrlValues($visited_page_url, $other_query_parameters);
-        $this->setSefUrlIndicators($create_sef_url_indicator, $display_index_in_url_indicator);
-        $this->calculateStartAndStopLinks();
+        $this->total_items                    = $total_items;
+        $this->visited_page_url               = $visited_page_url;
+        $this->start_page_number              = $start_page_number;
+        $this->other_query_parameters         = $other_query_parameters;
+        $this->display_items_per_page_count   = $display_items_per_page_count;
+        $this->display_page_link_count        = $display_page_link_count;
+        $this->create_sef_url_indicator       = $create_sef_url_indicator;
+        $this->display_index_in_url_indicator = $display_index_in_url_indicator;
+
+        $this->calculateValues();
 
         return $this->createPaginationRow();
     }
 
     /**
-     * Set Pagination Display Values
+     * Pass properties into Calculate Class and return calculations
      *
-     * @param   integer $start_page_number
-     * @param   integer $display_items_per_page_count
-     * @param   integer $display_page_link_count
+     * @param   array $options
      *
-     * @return  $this
+     * @return  array
      * @since   1.0
      */
-    protected function setPaginationDisplayValues(
-        $start_page_number,
-        $display_items_per_page_count,
-        $display_page_link_count
-    ) {
-        $this->display_items_per_page_count = $display_items_per_page_count;
-
-        if ((int)$this->display_items_per_page_count === 0) {
-            $this->display_items_per_page_count = 9999999;
-            $start_page_number                  = 1;
-            $display_page_link_count            = 0;
+    protected function calculateValues()
+    {
+        $options = array();
+        foreach ($this->properties_array as $key) {
+            $options[$key] = $this->$key;
         }
 
-        $this->setStartParameter($start_page_number);
+        $calculate    = new Calculations();
+        $calculations = $calculate->setValues($this->properties_array, $options);
 
-        $this->setDisplayPageLinkCount($display_page_link_count);
-
-        return $this;
-    }
-
-    /**
-     * Set Start Parameter
-     *
-     * @param   integer $start_page_number
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setStartParameter($start_page_number)
-    {
-        if ((int)$start_page_number > 0) {
-        } else {
-            $start_page_number = 1;
-        }
-
-        if (($start_page_number * $this->display_items_per_page_count) > $this->total_items) {
-            $start_page_number = 1;
-        }
-
-        $this->start_page_number = $start_page_number;
-
-        return $this;
-    }
-
-    /**
-     * Set Display Page Link Count
-     *
-     * @param   integer $display_page_link_count
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setDisplayPageLinkCount($display_page_link_count)
-    {
-        if ((int)$display_page_link_count < 1) {
-            $display_page_link_count = 5;
-        }
-
-        $this->display_page_link_count = (int)$display_page_link_count;
-
-        return $this;
-    }
-
-    /**
-     * Set Pagination URL Values
-     *
-     * @param   string $visited_page_url
-     * @param   array  $other_query_parameters
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setPaginationUrlValues(
-        $visited_page_url,
-        array $other_query_parameters
-    ) {
-        $this->setVisitedPageUrl($visited_page_url);
-        $this->setOtherQueryParameters($other_query_parameters);
-
-        return $this;
-    }
-
-    /**
-     * Set Visited Page Url
-     *
-     * @param   string $visited_page_url
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setVisitedPageUrl($visited_page_url)
-    {
-        $this->visited_page_url = $visited_page_url;
-
-        return $this;
-    }
-
-    /**
-     * Set Other Query Parameters
-     *
-     * @param   array $other_query_parameters
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setOtherQueryParameters(array $other_query_parameters)
-    {
-        $this->other_query_parameters = $other_query_parameters;
-
-        return $this;
-    }
-
-    /**
-     * Set SEF Url Indicators
-     *
-     * @param   boolean $create_sef_url_indicator
-     * @param   boolean $display_index_in_url_indicator
-     *
-     * @return  $this
-     * @since   1.0
-     */
-    protected function setSefUrlIndicators($create_sef_url_indicator, $display_index_in_url_indicator)
-    {
-        $this->display_index_in_url_indicator = $display_index_in_url_indicator;
-
-        if ($create_sef_url_indicator === true) {
-            $this->create_sef_url_indicator = true;
-        } else {
-            $this->create_sef_url_indicator       = false;
-            $this->display_index_in_url_indicator = true;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Calculate start and stop links
-     *
-     * @since   1.0
-     * @return  $this
-     */
-    protected function calculateStartAndStopLinks()
-    {
-        $this->setPageBoundaries();
-
-        if ($this->start_page_number - 1 > $this->start_links_page_number) {
-            $this->start_links_page_number = $this->start_page_number - 1;
-        }
-
-        if ($this->start_links_page_number + $this->display_page_link_count - 1 > $this->last_page) {
-            $this->stop_links_page_number  = $this->last_page;
-            $this->start_links_page_number = $this->last_page - $this->display_page_link_count + 1;
-        } else {
-            $this->stop_links_page_number = $this->start_links_page_number + $this->display_page_link_count - 1;
-        }
-
-        $this->adjustBoundariesForContent();
-
-        $this->display_page_link_count = $this->stop_links_page_number - $this->start_links_page_number + 1;
-
-        return $this;
-    }
-
-    /**
-     * Set Page Boundaries
-     *
-     * @since   1.0
-     * @return  $this
-     */
-    protected function setPageBoundaries()
-    {
-        $this->last_page               = ceil($this->total_items / $this->display_items_per_page_count);
-        $this->start_links_page_number = 1;
-        $this->stop_links_page_number  = $this->last_page;
-
-        return $this;
-    }
-
-    /**
-     * Adjust Page Boundaries for Content
-     *
-     * @since   1.0
-     * @return  $this
-     */
-    protected function adjustBoundariesForContent()
-    {
-        if ($this->start_links_page_number < 1) {
-            $this->start_links_page_number = 1;
-        }
-
-        if ($this->stop_links_page_number > $this->last_page) {
-            $this->stop_links_page_number = $this->last_page;
+        foreach ($this->properties_array as $key) {
+            $this->$key = $calculations[$key];
         }
 
         return $this;

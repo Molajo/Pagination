@@ -35,16 +35,19 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  Molajo\Pagination::getPaginationData
-     * @covers  Molajo\Pagination::setPaginationDisplayValues
-     * @covers  Molajo\Pagination::setStartParameter
-     * @covers  Molajo\Pagination::setDisplayPageLinkCount
-     * @covers  Molajo\Pagination::setPaginationUrlValues
-     * @covers  Molajo\Pagination::setVisitedPageUrl
-     * @covers  Molajo\Pagination::setOtherQueryParameters
-     * @covers  Molajo\Pagination::setSefUrlIndicators
-     * @covers  Molajo\Pagination::calculateStartAndStopLinks
-     * @covers  Molajo\Pagination::setPageBoundaries
-     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::calculateValues
+     *
+     * @covers  Molajo\Calculations::setValues
+     * @covers  Molajo\Calculations::setClassProperties
+     * @covers  Molajo\Calculations::setReturnOptions
+     * @covers  Molajo\Calculations::setPaginationDisplayValues
+     * @covers  Molajo\Calculations::setStartParameter
+     * @covers  Molajo\Calculations::setDisplayPageLinkCount
+     * @covers  Molajo\Calculations::setSefUrlIndicators
+     * @covers  Molajo\Calculations::calculateStartAndStopLinks
+     * @covers  Molajo\Calculations::setPageBoundaries
+     * @covers  Molajo\Calculations::adjustBoundariesForContent
+     *
      * @covers  Molajo\Pagination::createPaginationRow
      * @covers  Molajo\Pagination::getPageUrlDriver
      * @covers  Molajo\Pagination::getPageUrl
@@ -114,16 +117,19 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  Molajo\Pagination::getPaginationData
-     * @covers  Molajo\Pagination::setPaginationDisplayValues
-     * @covers  Molajo\Pagination::setStartParameter
-     * @covers  Molajo\Pagination::setDisplayPageLinkCount
-     * @covers  Molajo\Pagination::setPaginationUrlValues
-     * @covers  Molajo\Pagination::setVisitedPageUrl
-     * @covers  Molajo\Pagination::setOtherQueryParameters
-     * @covers  Molajo\Pagination::setSefUrlIndicators
-     * @covers  Molajo\Pagination::calculateStartAndStopLinks
-     * @covers  Molajo\Pagination::setPageBoundaries
-     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::calculateValues
+     *
+     * @covers  Molajo\Calculations::setValues
+     * @covers  Molajo\Calculations::setClassProperties
+     * @covers  Molajo\Calculations::setReturnOptions
+     * @covers  Molajo\Calculations::setPaginationDisplayValues
+     * @covers  Molajo\Calculations::setStartParameter
+     * @covers  Molajo\Calculations::setDisplayPageLinkCount
+     * @covers  Molajo\Calculations::setSefUrlIndicators
+     * @covers  Molajo\Calculations::calculateStartAndStopLinks
+     * @covers  Molajo\Calculations::setPageBoundaries
+     * @covers  Molajo\Calculations::adjustBoundariesForContent
+     *
      * @covers  Molajo\Pagination::createPaginationRow
      * @covers  Molajo\Pagination::getPageUrlDriver
      * @covers  Molajo\Pagination::getPageUrl
@@ -192,16 +198,19 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  Molajo\Pagination::getPaginationData
-     * @covers  Molajo\Pagination::setPaginationDisplayValues
-     * @covers  Molajo\Pagination::setStartParameter
-     * @covers  Molajo\Pagination::setDisplayPageLinkCount
-     * @covers  Molajo\Pagination::setPaginationUrlValues
-     * @covers  Molajo\Pagination::setVisitedPageUrl
-     * @covers  Molajo\Pagination::setOtherQueryParameters
-     * @covers  Molajo\Pagination::setSefUrlIndicators
-     * @covers  Molajo\Pagination::calculateStartAndStopLinks
-     * @covers  Molajo\Pagination::setPageBoundaries
-     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::calculateValues
+     *
+     * @covers  Molajo\Calculations::setValues
+     * @covers  Molajo\Calculations::setClassProperties
+     * @covers  Molajo\Calculations::setReturnOptions
+     * @covers  Molajo\Calculations::setPaginationDisplayValues
+     * @covers  Molajo\Calculations::setStartParameter
+     * @covers  Molajo\Calculations::setDisplayPageLinkCount
+     * @covers  Molajo\Calculations::setSefUrlIndicators
+     * @covers  Molajo\Calculations::calculateStartAndStopLinks
+     * @covers  Molajo\Calculations::setPageBoundaries
+     * @covers  Molajo\Calculations::adjustBoundariesForContent
+     *
      * @covers  Molajo\Pagination::createPaginationRow
      * @covers  Molajo\Pagination::getPageUrlDriver
      * @covers  Molajo\Pagination::getPageUrl
@@ -271,16 +280,19 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  Molajo\Pagination::getPaginationData
-     * @covers  Molajo\Pagination::setPaginationDisplayValues
-     * @covers  Molajo\Pagination::setStartParameter
-     * @covers  Molajo\Pagination::setDisplayPageLinkCount
-     * @covers  Molajo\Pagination::setPaginationUrlValues
-     * @covers  Molajo\Pagination::setVisitedPageUrl
-     * @covers  Molajo\Pagination::setOtherQueryParameters
-     * @covers  Molajo\Pagination::setSefUrlIndicators
-     * @covers  Molajo\Pagination::calculateStartAndStopLinks
-     * @covers  Molajo\Pagination::setPageBoundaries
-     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::calculateValues
+     *
+     * @covers  Molajo\Calculations::setValues
+     * @covers  Molajo\Calculations::setClassProperties
+     * @covers  Molajo\Calculations::setReturnOptions
+     * @covers  Molajo\Calculations::setPaginationDisplayValues
+     * @covers  Molajo\Calculations::setStartParameter
+     * @covers  Molajo\Calculations::setDisplayPageLinkCount
+     * @covers  Molajo\Calculations::setSefUrlIndicators
+     * @covers  Molajo\Calculations::calculateStartAndStopLinks
+     * @covers  Molajo\Calculations::setPageBoundaries
+     * @covers  Molajo\Calculations::adjustBoundariesForContent
+     *
      * @covers  Molajo\Pagination::createPaginationRow
      * @covers  Molajo\Pagination::getPageUrlDriver
      * @covers  Molajo\Pagination::getPageUrl
@@ -349,16 +361,19 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  Molajo\Pagination::getPaginationData
-     * @covers  Molajo\Pagination::setPaginationDisplayValues
-     * @covers  Molajo\Pagination::setStartParameter
-     * @covers  Molajo\Pagination::setDisplayPageLinkCount
-     * @covers  Molajo\Pagination::setPaginationUrlValues
-     * @covers  Molajo\Pagination::setVisitedPageUrl
-     * @covers  Molajo\Pagination::setOtherQueryParameters
-     * @covers  Molajo\Pagination::setSefUrlIndicators
-     * @covers  Molajo\Pagination::calculateStartAndStopLinks
-     * @covers  Molajo\Pagination::setPageBoundaries
-     * @covers  Molajo\Pagination::adjustBoundariesForContent
+     * @covers  Molajo\Pagination::calculateValues
+     *
+     * @covers  Molajo\Calculations::setValues
+     * @covers  Molajo\Calculations::setClassProperties
+     * @covers  Molajo\Calculations::setReturnOptions
+     * @covers  Molajo\Calculations::setPaginationDisplayValues
+     * @covers  Molajo\Calculations::setStartParameter
+     * @covers  Molajo\Calculations::setDisplayPageLinkCount
+     * @covers  Molajo\Calculations::setSefUrlIndicators
+     * @covers  Molajo\Calculations::calculateStartAndStopLinks
+     * @covers  Molajo\Calculations::setPageBoundaries
+     * @covers  Molajo\Calculations::adjustBoundariesForContent
+     *
      * @covers  Molajo\Pagination::createPaginationRow
      * @covers  Molajo\Pagination::getPageUrlDriver
      * @covers  Molajo\Pagination::getPageUrl

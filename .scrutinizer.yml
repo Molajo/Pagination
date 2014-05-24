@@ -1,5 +1,5 @@
 filter:
-    excluded_paths: [ "vendor/*", ".dev/*", "Factories/*"]
+    excluded_paths: [ "vendor/*", ".dev/*", "Factories/*" ]
 
 tools:
     # https://scrutinizer-ci.com/docs/tools/external-code-coverage/

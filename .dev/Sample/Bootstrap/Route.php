@@ -41,13 +41,13 @@ if (trim($query_string) == '') {
         (strlen($page_url) - strlen($query_string))
     );
 }
-if (strtolower(substr($page_url, - 1)) == '?') {
+if (strtolower(substr($page_url, -1)) == '?') {
     $page_url = substr($page_url, 0, strlen($page_url) - 1);
 }
-if (strtolower(substr($page_url, - 9)) == 'index.php') {
+if (strtolower(substr($page_url, -9)) == 'index.php') {
     $page_url = substr($page_url, 0, strlen($page_url) - 9);
 }
-if (strtolower(substr($page_url, - 1)) == '/') {
+if (strtolower(substr($page_url, -1)) == '/') {
     $page_url = substr($page_url, 0, strlen($page_url) - 1);
 }
 

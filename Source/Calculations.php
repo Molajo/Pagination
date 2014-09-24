@@ -139,7 +139,7 @@ class Calculations
     /**
      * Set options array with established property values
      *
-     * @param   array  $options
+     * @param   array $options
      *
      * @return  Calculations
      * @since   1.0

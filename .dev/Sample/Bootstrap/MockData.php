@@ -93,11 +93,11 @@ class MockData
                 // skip for previous pages
 
             } elseif ($count_return_data < $this->display_items_per_page_count) {
-                $count_return_data ++;
+                $count_return_data++;
                 $return_data[] = $data;
             }
 
-            $i ++;
+            $i++;
         }
 
         return $return_data;

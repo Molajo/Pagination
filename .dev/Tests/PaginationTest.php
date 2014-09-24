@@ -79,7 +79,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
         $parameter_start                = 1;
         $other_query_parameters         = array('dog' => 'woof', 'cat' => 'meow');
 
-        $row           = $this->pagination->getPaginationData(
+        $row = $this->pagination->getPaginationData(
             $total_items,
             $page_url,
             $parameter_start,

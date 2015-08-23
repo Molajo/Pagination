@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajo\Pagination\Test;
 
@@ -15,7 +15,7 @@ use Molajo\Pagination;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0
  */
 class PaginationTest extends \PHPUnit_Framework_TestCase
@@ -66,7 +66,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testPagination1()
     {
@@ -149,7 +149,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testPagination2()
     {
@@ -231,7 +231,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testPaginationEnd()
     {
@@ -314,7 +314,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testPagination999()
     {
@@ -396,7 +396,7 @@ class PaginationTest extends \PHPUnit_Framework_TestCase
      * @covers  Molajo\Pagination::setPageUrl
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     public function testPaginationEmpty()
     {

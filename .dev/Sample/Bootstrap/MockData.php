@@ -3,7 +3,7 @@
  * Mock Data for Sample Pagination Theme
  *
  * @package    Molajo
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 namespace Molajo\Pagination;
@@ -15,7 +15,7 @@ use stdClass;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class MockData
@@ -78,7 +78,7 @@ class MockData
      * Instantiate Class
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     public function getData()
@@ -107,7 +107,7 @@ class MockData
      * Total rows
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      * @throws  \CommonApi\Exception\RuntimeException
      */
     public function getTotalItemsCount()
@@ -119,7 +119,7 @@ class MockData
      * Create Mock Data
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     public function createMockData()
     {

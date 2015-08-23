@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajo;
 
@@ -13,7 +13,7 @@ namespace Molajo;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class Calculations
@@ -120,7 +120,7 @@ class Calculations
      *
      * @param   array $options
      *
-     * @since   1.0
+     * @since   1.0.0
      * @return  array
      */
     public function setValues(array $properties_array, array $options)
@@ -142,7 +142,7 @@ class Calculations
      * @param   array $options
      *
      * @return  Calculations
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setClassProperties($options)
     {
@@ -157,7 +157,7 @@ class Calculations
      * Set options array with established property values
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setReturnOptions()
     {
@@ -174,7 +174,7 @@ class Calculations
      * Set Pagination Display Values
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setPaginationDisplayValues()
     {
@@ -195,7 +195,7 @@ class Calculations
      * Set Start Parameter
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setStartParameter()
     {
@@ -215,7 +215,7 @@ class Calculations
      * Set Display Page Link Count
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setDisplayPageLinkCount()
     {
@@ -230,7 +230,7 @@ class Calculations
      * Set SEF Url Indicators
      *
      * @return  $this
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setSefUrlIndicators()
     {
@@ -247,7 +247,7 @@ class Calculations
     /**
      * Calculate start and stop links
      *
-     * @since   1.0
+     * @since   1.0.0
      * @return  $this
      */
     protected function calculateStartAndStopLinks()
@@ -275,7 +275,7 @@ class Calculations
     /**
      * Set Page Boundaries
      *
-     * @since   1.0
+     * @since   1.0.0
      * @return  $this
      */
     protected function setPageBoundaries()
@@ -290,7 +290,7 @@ class Calculations
     /**
      * Adjust Page Boundaries for Content
      *
-     * @since   1.0
+     * @since   1.0.0
      * @return  $this
      */
     protected function adjustBoundariesForContent()

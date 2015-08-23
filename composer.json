@@ -3,7 +3,12 @@
     "description": "Pagination Support for PHP Applications",
     "version": "1.0.0",
     "type": "molajo-package",
-    "keywords": ["render", "commonapi", "molajo", "pagination"],
+    "keywords": [
+        "render",
+        "commonapi",
+        "molajo",
+        "pagination"
+    ],
     "homepage": "http://github.com/Molajo/Pagination",
     "license": "MIT",
     "authors": [

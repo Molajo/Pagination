@@ -4,7 +4,7 @@
  *
  * @package    Molajo
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  */
 namespace Molajo;
 
@@ -18,7 +18,7 @@ use stdClass;
  *
  * @author     Amy Stephen
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright  2014 Amy Stephen. All rights reserved.
+ * @copyright  2014-2015 Amy Stephen. All rights reserved.
  * @since      1.0.0
  */
 class Pagination implements PaginationInterface
@@ -155,7 +155,7 @@ class Pagination implements PaginationInterface
      * @param   boolean $create_sef_url_indicator
      * @param   boolean $display_index_in_url_indicator
      *
-     * @since   1.0
+     * @since   1.0.0
      * @return  null|stdClass
      */
     public function getPaginationData(
@@ -184,7 +184,7 @@ class Pagination implements PaginationInterface
      * Calculate page values, render pagination row
      *
      * @return  stdClass
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function driver()
     {
@@ -202,7 +202,7 @@ class Pagination implements PaginationInterface
      *
      *
      * @return  Pagination
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function calculateValues()
     {
@@ -224,7 +224,7 @@ class Pagination implements PaginationInterface
     /**
      * Create Pagination Row Object for rendering
      *
-     * @since   1.0
+     * @since   1.0.0
      * @return  stdClass
      */
     protected function createPaginationRow()
@@ -255,7 +255,7 @@ class Pagination implements PaginationInterface
      * @param   stdClass $row
      *
      * @return  stdClass
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getPageUrlDriver($value, $row)
     {
@@ -276,7 +276,7 @@ class Pagination implements PaginationInterface
      * @param   mixed $page_number
      *
      * @return  array
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getPageUrl($page_number)
     {
@@ -304,7 +304,7 @@ class Pagination implements PaginationInterface
      * @param   integer $page_number
      *
      * @return  int
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function adjustPageNumberForContent($page_number)
     {
@@ -323,7 +323,7 @@ class Pagination implements PaginationInterface
      * Get the first page number (always page=1 unless no pages)
      *
      * @return  int
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getFirstPage()
     {
@@ -338,7 +338,7 @@ class Pagination implements PaginationInterface
      * Get the page number previous to the first displayed page number link
      *
      * @return  int
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getPreviousPage()
     {
@@ -353,7 +353,7 @@ class Pagination implements PaginationInterface
      * Get the current page number
      *
      * @return  int
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getCurrentPage()
     {
@@ -364,7 +364,7 @@ class Pagination implements PaginationInterface
      * Get the page number following the last displayed page number link
      *
      * @return  int
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getNextPage()
     {
@@ -379,7 +379,7 @@ class Pagination implements PaginationInterface
      * Get the final page number
      *
      * @return  int
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getLastPage()
     {
@@ -390,7 +390,7 @@ class Pagination implements PaginationInterface
      * Get the first page number to use when looping through the display page number buttons
      *
      * @return  int
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getStartLinksPage()
     {
@@ -401,7 +401,7 @@ class Pagination implements PaginationInterface
      * Get the last page number to use when looping through the display page number buttons
      *
      * @return  int
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getStopLinksPage()
     {
@@ -412,7 +412,7 @@ class Pagination implements PaginationInterface
      * Get the total number of items in the recordset (not just those displayed on the page)
      *
      * @return  int
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function getTotalItems()
     {
@@ -425,7 +425,7 @@ class Pagination implements PaginationInterface
      * @param   int $page_number
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setPageUrlParameters($page_number)
     {
@@ -438,7 +438,7 @@ class Pagination implements PaginationInterface
      * @param   integer $page_number
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setPageUrlSef($page_number)
     {
@@ -454,7 +454,7 @@ class Pagination implements PaginationInterface
      * @param   string $separator
      *
      * @return  string
-     * @since   1.0
+     * @since   1.0.0
      */
     protected function setPageUrl($page_number, $first_connector = '/', $connector = '/', $separator = '/')
     {
